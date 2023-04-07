@@ -73,4 +73,3 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
     session.commit()
-    print("Test")

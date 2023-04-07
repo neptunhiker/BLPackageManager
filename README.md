@@ -82,14 +82,10 @@ This project is intended to ease the onboarding process for new BL participants.
 - Testing through pytest and other unittest modules where needed
 
 ## Deployment
-- Three environments
-  - DEV
-  - TST
-  - PRD
+Branching workflow
 
 ## Planning
 - Dev steps
-  - Create three environments
   - Create and fill data base
   - Write classes
   - Design wireframes
