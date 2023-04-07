@@ -87,7 +87,7 @@ Branching workflow
 ## Planning
 - Dev steps
   - Create and fill data base
-  - Write classes
+  - Write classes 
   - Design wireframes
   - Develop the app
 
