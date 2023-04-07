@@ -6,7 +6,7 @@ class PackagePicker(ttk.Frame):
 
     def __init__(self, app) -> None:
         super(PackagePicker, self).__init__(master=app)
-
+        self.app = app
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=2)
         self.grid_rowconfigure(1, weight=12)
@@ -51,16 +51,17 @@ class PackagePicker(ttk.Frame):
         :return None
         """
 
-        package_titles = ["Paket A", "Paket B", "Paket C", "Paket D"]
-        durations_in_weeks = [8, 8, 12, 12]
-        ues_per_week = [4, 3, 4, 3]
-        sessions_per_week = [2, 1, 2, 1]
-        ues_coaches = [32, 24, 48, 36]
-        ues_bl = [20, 28, 4, 16]
-        ues_total = [52, 52, 52, 52]
+        packages = self.app.db.get_packages()
+        package_titles = [package.name for package in packages]
+        durations_in_weeks = [package.duration_in_weeks for package in packages]
+        ues_per_week = [package.ues_per_week for package in packages]
+        sessions_per_week = [package.sessions_per_week for package in packages]
+        ues_coach = [package.ues_coach for package in packages]
+        ues_bl = [package.ues_bl for package in packages]
+        ues_total = [package.ues for package in packages]
 
         column_counter = 0
-        for package, duration, ues, sessions, coach_ues, bl_ues, total_ues in zip(package_titles, durations_in_weeks, ues_per_week, sessions_per_week, ues_coaches, ues_bl, ues_total):
+        for package, duration, ues, sessions, coach_ues, bl_ues, total_ues in zip(package_titles, durations_in_weeks, ues_per_week, sessions_per_week, ues_coach, ues_bl, ues_total):
             lbl = ttk.Label(self.bottom_frame, text=package, 
                             font=(settings.FONT, settings.FONT_SIZE_L))
             lbl.grid(row=0, column=column_counter, pady=(100, 20))

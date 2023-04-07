@@ -1,13 +1,15 @@
 import ttkbootstrap as ttk
 
+import database
 import frames
 import settings
 
 
 class App(ttk.Window):
 
-    def __init__(self):
+    def __init__(self, database):
         super(App, self).__init__(themename=settings.THEMENAME)
+        self.db = database
         self._full_screen_window()
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -50,5 +52,6 @@ class App(ttk.Window):
         self.pages[page].tkraise()
 
 if __name__ == "__main__":
-    app = App()
+    db = database.DataBase()
+    app = App(database=db)
     app.mainloop()

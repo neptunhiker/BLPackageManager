@@ -39,8 +39,8 @@ class Coach(Base):
     description = Column("Description", String)
     web_link = Column("WebsiteLink", String)
 
-    def __init__(self, id, title, first_name, last_name, email, description, web_link) -> None:
-        self.id = id
+    def __init__(self, title, first_name, last_name, email, description, web_link) -> None:
+        self.id = self.id
         self.title = title
         self.first_name = first_name
         self.last_name = last_name
@@ -61,8 +61,8 @@ class Module(Base):
     max_ues = Column("MaxUEs", Integer)
     default_owner = Column("DefaultOwner", String)
 
-    def __init__(self, id, name, description, min_ues, max_ues, default_owner) -> None:
-        self.id = id
+    def __init__(self, name, description, min_ues, max_ues, default_owner) -> None:
+        self.id = self.id
         self.name = name
         self.description = description
         self.min_ues = min_ues
@@ -93,6 +93,7 @@ class Package(Base):
         self.duration_in_weeks = duration_in_weeks
         self.ues = ues
         self.sessions_per_week = sessions_per_week
+        self.ues_per_week = ues_per_week
         self.description = description
         self.ues_coach = ues_coach
         self.ues_bl = ues_bl
@@ -181,29 +182,99 @@ def create_db() -> None:
                         ues_coach=24,
                         ues_bl=28))
     
+    session.add(Package(id=3, name="C", 
+                        duration_in_weeks=12,
+                        ues=52,
+                        sessions_per_week=2,
+                        ues_per_week=4,
+                        description="Paket C hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
+                        ues_coach=48,
+                        ues_bl=4))
+    
+    session.add(Package(id=4, name="D", 
+                        duration_in_weeks=12,
+                        ues=52,
+                        sessions_per_week=1,
+                        ues_per_week=3,
+                        description="Paket D hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
+                        ues_coach=36,
+                        ues_bl=16))
+    
     session.commit()
+
+class DataBase:
+
+    def __init__(self) -> None:
+        self.engine = create_engine("sqlite:///bl_db.db", echo=False)
+        self.Session = sessionmaker(bind=self.engine)
+
+    def get_crew_members(self) -> list:
+        """
+        Get all crew members from database
+        :return list of crew member objects
+        """
+        session = self.Session()
+        return session.query(BLCrew).all()
+    
+    def get_modules(self) -> list:
+        """
+        Get all modules from database
+        :return list of module objects
+        """
+        session = self.Session()
+        return session.query(Module).all()
+    
+    def get_packages(self) -> list:
+        """
+        Get all packages from database
+        :return list of package objects
+        """
+        session = self.Session()
+        return session.query(Package).all()
+    
+    def get_participants(self) -> list:
+        """
+        Get all participants from database
+        :return list of participant objects
+        """
+        session = self.Session()
+        return session.query(Participant).all()
 
 if __name__ == "__main__":
 
-    # create_db()
-    engine = create_engine("sqlite:///bl_db.db", echo=False)
+    create_db()
+    # engine = create_engine("sqlite:///bl_db.db", echo=False)
 
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    # Session = sessionmaker(bind=engine)
+    # session = Session()
 
-    crew_members = session.query(BLCrew).all()
+    # crew_members = session.query(BLCrew).all()
+    # for crew_member in crew_members:
+    #     print(crew_member)
+
+    # packages = session.query(Package).all()
+    # for package in packages:
+    #     print(package)
+
+    # modules = session.query(Module).all()
+    # for module in modules:
+    #     print(module)
+
+    # coaches = session.query(Coach).all()
+    # for coach in coaches:
+        # print(coach)
+
+    db = DataBase()
+    crew_members = db.get_crew_members()
     for crew_member in crew_members:
         print(crew_member)
 
-    packages = session.query(Package).all()
-    for package in packages:
-        print(package)
-
-    modules = session.query(Module).all()
-    for module in modules:
+    for module in db.get_modules():
         print(module)
 
-    coaches = session.query(Coach).all()
-    for coach in coaches:
-        print(coach)
+    for package in db.get_packages():
+        print(package)
+
+    for participant in db.get_participants():
+        print(participant)
 
