@@ -160,7 +160,8 @@ def create_db(path: str) -> None:
                        description="Erstgespräch zwischen Teilnehmer:In und BeginnerLuft inkl. Matching mit einem erfahrenen und passenden Coach.",
                        min_ues=2,
                        max_ues=6,
-                       default_owner="BeginnerLuft"))
+                       default_owner="BeginnerLuft",
+                       default=True))
 
     session.add(Module(name="Zielbeschreibung",
                        description="Ergründung des Coaching Ziels.",
