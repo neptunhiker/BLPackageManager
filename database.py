@@ -247,19 +247,19 @@ class DataBase:
 
 if __name__ == "__main__":
 
-    create_db(path="test.db")
+    # create_db(path="test.db")
 
-    # db = DataBase(path="test.db")
-    # crew_members = db.get_crew_members()
-    # for crew_member in crew_members:
-    #     print(crew_member)
+    db = DataBase(path="bl_db.db")
+    crew_members = db.get_crew_members()
+    for crew_member in crew_members:
+        print(crew_member)
 
-    # for module in db.get_modules():
-    #     print(module)
+    for module in db.get_modules():
+        print(module)
 
-    # for package in db.get_packages():
-    #     print(package)
+    for package in db.get_packages():
+        print(package)
 
-    # for participant in db.get_participants():
-    #     print(participant)
+    for participant in db.get_participants():
+        print(participant)
 
