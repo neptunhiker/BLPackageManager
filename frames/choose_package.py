@@ -2,7 +2,7 @@ import ttkbootstrap as ttk
 from tkinter import ttk as tkinterttk
 
 import database
-import frames.utils.navigation
+import utils.navigation
 import settings
 
 class SelectableFrame:
@@ -221,5 +221,5 @@ class PackagePicker(ttk.Frame):
         :return None
         """
         style = f"inverse-{nav_style}"
-        advance = frames.utils.navigation.NavToModulePicker(app=self.app, parent=self.nav_frame, style=style, forward=True)
+        advance = utils.navigation.NavToModulePicker(app=self.app, parent=self.nav_frame, style=style, forward=True)
         advance.grid(row=0, column=1, sticky="E", padx=(0, 20))

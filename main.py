@@ -10,12 +10,8 @@ class App(ttk.Window):
     def __init__(self, database):
         super(App, self).__init__(themename=settings.THEMENAME)
         self.db = database
-        self.packages = self.db.get_packages()
-        for package in self.packages:
-            print(package.id)    
-        self.packages = sorted(self.packages, key=lambda obj: obj.id)
-        for package in self.packages:
-            print(package.id)
+        self.modules = self.db.get_modules()
+        self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
 
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")

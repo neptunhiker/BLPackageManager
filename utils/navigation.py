@@ -1,6 +1,6 @@
 import ttkbootstrap as ttk
 
-from .. import choose_package, choose_module
+from frames import choose_package, choose_module
 import settings
 
 

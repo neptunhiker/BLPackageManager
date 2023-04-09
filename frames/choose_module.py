@@ -3,7 +3,7 @@ from tkinter import ttk as tkinterttk
 
 import database
 import settings
-import frames.utils.navigation
+import utils.navigation
 
 # class SelectableFrame:
 
@@ -52,8 +52,8 @@ class ModulePicker(ttk.Frame):
             self.nav_frame.grid_columnconfigure(i, weight=1)
 
         # create content
-        self._title(title="BeginnerLuft Zusatzmodule")
-
+        self._title(title="BeginnerLuft Service")
+        self._modules()
         self._navigation(nav_style=navigation_style)
     
     def _title(self, title: str) -> None:
@@ -65,12 +65,22 @@ class ModulePicker(ttk.Frame):
                           font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
         title.grid(row=0, column=0)
 
+    def _modules(self) -> None:
+        """
+        Place modules for selection on the page
+        :return None
+        """
+        for row, module in enumerate(self.app.modules):
+            label = ttk.Label(self.module_frame, text=module.name)
+            label.grid(row=row, column=0)
+    
+
     def _navigation(self, nav_style: str = "secondary") -> None:
         """
         Display naviagation elements
         :return None
         """
         style = f"inverse-{nav_style}"
-        back = frames.utils.navigation.NavToPackagePicker(app=self.app, parent=self.nav_frame, style=style, forward=False)
+        back = utils.navigation.NavToPackagePicker(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
