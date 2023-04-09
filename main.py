@@ -10,9 +10,20 @@ class App(ttk.Window):
     def __init__(self, database):
         super(App, self).__init__(themename=settings.THEMENAME)
         self.db = database
+        self.packages = self.db.get_packages()
+        for package in self.packages:
+            print(package.id)    
+        self.packages = sorted(self.packages, key=lambda obj: obj.id)
+        for package in self.packages:
+            print(package.id)
+
+        style = ttk.Style()
+        style.configure("Custom.TFrame", bordercolor="red")
+
         self._full_screen_window()
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
+
         self.pages = {}
 
         self.add_page(page_class=frames.choose_package.PackagePicker)
