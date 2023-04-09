@@ -28,9 +28,17 @@ class ModulePicker(ttk.Frame):
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
 
-        self.bottom_frame = ttk.Frame(self)
+        self.bottom_frame = ttk.Frame(self, bootstyle="danger")
         self.bottom_frame.grid(row=1, column=0, sticky="NSEW")
-        self.bottom_frame.grid_columnconfigure(0, weight=1)
+        self.bottom_frame.grid_columnconfigure(0, weight=2)
+        self.bottom_frame.grid_columnconfigure(1, weight=1)
+        self.bottom_frame.grid_rowconfigure(0, weight=1)
+
+        self.module_frame = ttk.Frame(self.bottom_frame, bootstyle="success")
+        self.module_frame.grid(row=0, column=0, sticky="NSEW")
+        self.doc_frame = ttk.Frame(self.bottom_frame, bootstyle="warning")
+        self.doc_frame.grid(row=0, column=1, sticky="NSEW")
+
 
         self.bottom_frame.grid_propagate(False)
 
