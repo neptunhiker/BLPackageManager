@@ -3,6 +3,7 @@ from tkinter import ttk as tkinterttk
 
 import database
 import settings
+import frames.utils.navigation
 
 # class SelectableFrame:
 
@@ -70,10 +71,6 @@ class ModulePicker(ttk.Frame):
         :return None
         """
         style = f"inverse-{nav_style}"
-        back = ttk.Label(self.nav_frame, text="<-- zurück", bootstyle=style,
-                         font=(settings.FONT, settings.FONT_SIZE_M))
+        back = frames.utils.navigation.NavToPackagePicker(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
-        advance = ttk.Label(self.nav_frame, text="vor -->", bootstyle=style,
-                            font=(settings.FONT, settings.FONT_SIZE_M))
-        advance.grid(row=0, column=1, sticky="E", padx=(0, 20))
