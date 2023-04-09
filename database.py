@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Column, String, Integer, CHAR, create_engine
+from sqlalchemy import ForeignKey, Column, String, Integer, CHAR, create_engine, Boolean
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
@@ -60,14 +60,17 @@ class Module(Base):
     min_ues = Column("MinUEs", Integer)
     max_ues = Column("MaxUEs", Integer)
     default_owner = Column("DefaultOwner", String)
+    default = Column("Default", Boolean)
 
-    def __init__(self, name, description, min_ues, max_ues, default_owner) -> None:
+    def __init__(self, name, description, min_ues, max_ues, default_owner, 
+                 default: bool = False) -> None:
         self.id = self.id
         self.name = name
         self.description = description
         self.min_ues = min_ues
         self.max_ues = max_ues
         self.default_owner = default_owner
+        self.default = default
 
     def __str__(self) -> str:
         return f"Module: {self.name} - {self.description}"
@@ -125,11 +128,12 @@ class Participant(Base):
         return f"Teilnehmer:In {self.title} {self.first_name} {self.last_name}"
 
 
-def create_db() -> None:
+def create_db(path: str) -> None:
     """
     Create a database from scratch with some example entries
+    :param path: the path to the database
     """
-    engine = create_engine("sqlite:///bl_db.db", echo=True)
+    engine = create_engine(f"sqlite:///{path}", echo=True)
     Base.metadata.create_all(bind=engine)
 
     Session = sessionmaker(bind=engine)
@@ -204,8 +208,8 @@ def create_db() -> None:
 
 class DataBase:
 
-    def __init__(self) -> None:
-        self.engine = create_engine("sqlite:///bl_db.db", echo=False)
+    def __init__(self, path: str = "bl_db.db") -> None:
+        self.engine = create_engine(f"sqlite:///{path}", echo=False)
         self.Session = sessionmaker(bind=self.engine)
 
     def get_crew_members(self) -> list:
@@ -242,39 +246,19 @@ class DataBase:
 
 if __name__ == "__main__":
 
-    create_db()
-    # engine = create_engine("sqlite:///bl_db.db", echo=False)
+    create_db(path="test.db")
 
-    # Session = sessionmaker(bind=engine)
-    # session = Session()
-
-    # crew_members = session.query(BLCrew).all()
+    # db = DataBase(path="test.db")
+    # crew_members = db.get_crew_members()
     # for crew_member in crew_members:
     #     print(crew_member)
 
-    # packages = session.query(Package).all()
-    # for package in packages:
-    #     print(package)
-
-    # modules = session.query(Module).all()
-    # for module in modules:
+    # for module in db.get_modules():
     #     print(module)
 
-    # coaches = session.query(Coach).all()
-    # for coach in coaches:
-        # print(coach)
+    # for package in db.get_packages():
+    #     print(package)
 
-    db = DataBase()
-    crew_members = db.get_crew_members()
-    for crew_member in crew_members:
-        print(crew_member)
-
-    for module in db.get_modules():
-        print(module)
-
-    for package in db.get_packages():
-        print(package)
-
-    for participant in db.get_participants():
-        print(participant)
+    # for participant in db.get_participants():
+    #     print(participant)
 
