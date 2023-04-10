@@ -24,10 +24,12 @@ class App(ttk.Window):
         self.var_duration_in_weeks = ttk.IntVar(value="")
         self.var_sessions_with_coach = ttk.IntVar(value="")
 
+        # coach
         self.var_coach_name = ttk.StringVar()
         self.var_coach_description = ttk.StringVar()
         self.var_coach_web_link = ttk.StringVar()
 
+        # participant
         self.var_participant_name = ttk.StringVar()
         self.var_participant_first_name = ttk.StringVar()
         self.var_participant_last_name = ttk.StringVar()
@@ -35,6 +37,10 @@ class App(ttk.Window):
         self.var_participant_phone = ttk.StringVar()
         self.var_start_date = ttk.StringVar()
         self.var_end_date = ttk.StringVar()
+
+        # notes
+        self.notes_wishes = None
+        self.notes_other = None
         
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")
@@ -52,9 +58,10 @@ class App(ttk.Window):
         self.add_page(page_class=frames.participant_notes.Notes)
 
         # starting page
+        self.show_page(frames.choose_package.PackagePicker)
         # self.show_page(frames.choose_module.ModulePicker)
-        self.show_page(frames.matching.Matching)
-        self.show_page(frames.overview.Overview)
+        # self.show_page(frames.matching.Matching)
+        # self.show_page(frames.overview.Overview)
     
     def add_page(self, page_class: ttk.Frame) -> None:
         """

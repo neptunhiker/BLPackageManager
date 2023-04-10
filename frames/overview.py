@@ -13,7 +13,7 @@ class Overview(ttk.Frame):
         super(Overview, self).__init__(master=app)
         self.app = app
 
-        self.bind("<Enter>", lambda event: self._modules())
+        self.bind("<Enter>", lambda event: self._update())
         self.style = ttk.Style()
 
         self.grid_columnconfigure(0, weight=1)
@@ -55,7 +55,6 @@ class Overview(ttk.Frame):
             frame.grid_columnconfigure(0, weight=1)
             frame.grid_propagate(False)
         self.frame_01.grid_columnconfigure(1, weight=1)
-        self.frame_03.grid_columnconfigure(1, weight=1)
         self.bottom_frame.grid_propagate(False)
 
         # navigation frame
@@ -136,7 +135,7 @@ class Overview(ttk.Frame):
             widget.destroy()
 
         header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
-        header.grid(row=0, column=0, pady=20, columnspan=2)
+        header.grid(row=0, column=0, pady=20)
 
         modules_names = []
         for module, activated in self.app.chosen_modules.items():
@@ -151,19 +150,21 @@ class Overview(ttk.Frame):
         if rows_in_col_one == 0:
             row_counter = 1
             for module_name in sorted_modules:
-                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=row_counter, column=0, columnspan=2)
+                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=row_counter, column=0)
                 row_counter += 1
         else:
+            frame = ttk.Frame(self.frame_03)
+            frame.grid(row=1, column=0)
             # first elements in col 0
-            row_counter = 1
+            row_counter = 0
             for module_name in sorted_modules[0:rows_in_col_zero]:
-                lbl = ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S))
-                lbl.grid(row=row_counter, column=0, sticky="E", padx=(0, 15))
+                lbl = ttk.Label(frame, text=f"- {module_name}", font=(settings.FONT, settings.FONT_SIZE_S))
+                lbl.grid(row=row_counter, column=0, sticky="W", padx=(0, 10))
                 row_counter += 1
             # remaining elements in col 1
-            row_counter = 1
+            row_counter = 0
             for module_name in sorted_modules[rows_in_col_zero:]:
-                lbl = ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S))
+                lbl = ttk.Label(frame, text=f"- {module_name}", font=(settings.FONT, settings.FONT_SIZE_S))
                 lbl.grid(row=row_counter, column=1, sticky="W")
                 row_counter += 1
 
@@ -207,8 +208,25 @@ class Overview(ttk.Frame):
         Display the notes taken about the participant and the planned coaching
         :return None
         """
+        for widget in self.frame_06.winfo_children():
+            widget.destroy()
+        
         header = ttk.Label(self.frame_06, text="Notizen", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
-        header.grid(row=0, column=0, pady=20)
+        header.grid(row=0, column=0, pady=10)
+
+        header_wishes = ttk.Label(self.frame_06, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="secondary")
+        header_wishes.grid(row=1, column=0, pady=(0, 5))
+        if self.app.notes_wishes is not None:
+            wishes = ttk.Label(self.frame_06, text=self.app.notes_wishes.get("1.0", ttk.END), 
+                               font=(settings.FONT, settings.FONT_SIZE_XS), wraplength=450, justify="center")
+            wishes.grid(row=2, column=0)
+
+        header_other = ttk.Label(self.frame_06, text="Sonstige Besonderheiten", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="secondary")
+        header_other.grid(row=3, column=0, pady=(0, 5))
+        if self.app.notes_other is not None:
+            wishes = ttk.Label(self.frame_06, text=self.app.notes_other.get("1.0", ttk.END), 
+                               font=(settings.FONT, settings.FONT_SIZE_XS), wraplength=450, justify="center")
+            wishes.grid(row=4, column=0)
 
     def _title(self, title: str) -> None:
         """
@@ -227,3 +245,11 @@ class Overview(ttk.Frame):
         style = f"inverse-{nav_style}"
         back = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
+
+    def _update(self) -> None:
+        """
+        Update the chosen modules and the notes
+        :return None
+        """
+        self._modules()
+        self._notes()
