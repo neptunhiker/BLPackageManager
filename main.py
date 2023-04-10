@@ -8,7 +8,7 @@ import settings
 class App(ttk.Window):
 
     def __init__(self, database):
-        super(App, self).__init__(themename=settings.THEMENAME)
+        super(App, self).__init__(themename=settings.THEMENAME, title="BeginnerLuft")
         self.db = database
         self.coaches = db.get_coaches()
         self.chosen_coach = None

@@ -1,3 +1,4 @@
+from PIL import ImageGrab
 import ttkbootstrap as ttk
 from tkinter import ttk as tkinterttk
 
@@ -211,8 +212,8 @@ class Overview(ttk.Frame):
         for widget in self.frame_06.winfo_children():
             widget.destroy()
         
-        header = ttk.Label(self.frame_06, text="Notizen", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
-        header.grid(row=0, column=0, pady=10)
+        header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header.grid(row=0, column=0, pady=(20, 10))
 
         header_wishes = ttk.Label(self.frame_06, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="secondary")
         header_wishes.grid(row=1, column=0, pady=(0, 5))
@@ -245,6 +246,23 @@ class Overview(ttk.Frame):
         style = f"inverse-{nav_style}"
         back = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
+
+        btn = ttk.Button(self.nav_frame, text="Als .png speichern", command= lambda: self._save_as_jpeg(), cursor="hand2")
+        btn.grid(row=0, column=1, sticky="E", padx=(0, 20))
+
+    def _save_as_jpeg(self) -> None:
+        """
+        Save the screen to a jpeg file
+        """
+        geometry = self.app.winfo_geometry()
+
+        # Split the string into a list of four strings
+        geometry = geometry.split("+")
+        width, height, left, top = map(int, geometry[0].split("x") + geometry[1:])
+
+        image = ImageGrab.grab(bbox=(left, top, width, height + top))
+        file_name = f"Coaching - {self.app.var_participant_name.get()}.png"
+        image.save(file_name)
 
     def _update(self) -> None:
         """
