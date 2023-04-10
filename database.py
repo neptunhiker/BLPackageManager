@@ -213,6 +213,14 @@ class DataBase:
         self.engine = create_engine(f"sqlite:///{path}", echo=False)
         self.Session = sessionmaker(bind=self.engine)
 
+    def get_coaches(self) -> list:
+        """
+        Get all coaches from database
+        :return list of coach objects
+        """
+        session = self.Session()
+        return session.query(Coach).all()
+    
     def get_crew_members(self) -> list:
         """
         Get all crew members from database

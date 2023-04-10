@@ -10,6 +10,8 @@ class App(ttk.Window):
     def __init__(self, database):
         super(App, self).__init__(themename=settings.THEMENAME)
         self.db = database
+        self.coaches = db.get_coaches()
+        self.chosen_coach = None
         self.modules = self.db.get_modules()
         self.chosen_modules = {}
         self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
@@ -18,6 +20,8 @@ class App(ttk.Window):
         self.var_participant_last_name = ttk.StringVar()
         self.var_participant_email = ttk.StringVar()
         self.var_participant_phone = ttk.StringVar()
+        self.var_start_date = ttk.StringVar()
+        self.var_end_date = ttk.StringVar()
 
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")
