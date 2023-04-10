@@ -24,11 +24,13 @@ class App(ttk.Window):
 
         self.pages = {}
 
-        self.add_page(page_class=frames.choose_package.PackagePicker)
+        self.add_page(page_class=frames.matching.Matching)
         self.add_page(page_class=frames.choose_module.ModulePicker)
+        self.add_page(page_class=frames.choose_package.PackagePicker)
 
         # starting page
-        self.show_page(frames.choose_module.ModulePicker)
+        # self.show_page(frames.choose_module.ModulePicker)
+        self.show_page(frames.matching.Matching)
     
     def add_page(self, page_class: ttk.Frame) -> None:
         """

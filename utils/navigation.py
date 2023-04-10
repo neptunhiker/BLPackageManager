@@ -1,6 +1,6 @@
 import ttkbootstrap as ttk
 
-from frames import choose_package, choose_module
+import frames
 import settings
 
 
@@ -42,14 +42,20 @@ class NavLabel(ttk.Label):
             size = int(str(label.cget("font")).split()[-2])
         label.config(font=(settings.FONT, size))
 
+class NavToMatching(NavLabel):
+
+    def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool = True):
+        super().__init__(app, parent, style, forward)
+        self.bind("<Button-1>", lambda event: app.show_page(frames.matching.Matching))
+
 class NavToModulePicker(NavLabel):
 
     def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool = True):
         super().__init__(app, parent, style, forward)
-        self.bind("<Button-1>", lambda event: app.show_page(choose_module.ModulePicker))
+        self.bind("<Button-1>", lambda event: app.show_page(frames.choose_module.ModulePicker))
 
 class NavToPackagePicker(NavLabel):
 
     def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool = True):
         super().__init__(app, parent, style, forward)
-        self.bind("<Button-1>", lambda event: app.show_page(choose_package.PackagePicker))
+        self.bind("<Button-1>", lambda event: app.show_page(frames.choose_package.PackagePicker))

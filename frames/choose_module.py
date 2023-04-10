@@ -176,15 +176,8 @@ class ModulePicker(ttk.Frame):
         back = utils.navigation.NavToPackagePicker(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
-        test = ttk.Label(self.nav_frame, text="Testing the chosen modules")
-        test.grid(row=0, column=1, sticky="E")
-
-        def chosen_modules():
-            for module, activation_status in self.app.chosen_modules.items():
-                print(module, activation_status)
-
-        test.bind("<Enter>", lambda even: chosen_modules())
-
+        forward = utils.navigation.NavToMatching(app=self.app, parent=self.nav_frame, style=style, forward=True)
+        forward.grid(row=0, column=1, sticky="E", padx=(0, 20))
 
     def _highlight_frame(self, selec_frame: SelectableFrame) -> None:
         """
