@@ -13,6 +13,7 @@ class Overview(ttk.Frame):
         super(Overview, self).__init__(master=app)
         self.app = app
 
+        self.bind("<Enter>", lambda event: self._modules())
         self.style = ttk.Style()
 
         self.grid_columnconfigure(0, weight=1)
@@ -53,6 +54,8 @@ class Overview(ttk.Frame):
         for frame in frames:
             frame.grid_columnconfigure(0, weight=1)
             frame.grid_propagate(False)
+        self.frame_01.grid_columnconfigure(1, weight=1)
+        self.frame_03.grid_columnconfigure(1, weight=1)
         self.bottom_frame.grid_propagate(False)
 
         # navigation frame
@@ -79,10 +82,33 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
-        header.grid(row=0, column=0, pady=20)
+        header.grid(row=0, column=0, pady=20, columnspan=2)
 
-        test = ttk.Label(self.frame_01, text="hi")
-        test.grid(row=1, column=0)
+        name = ttk.Label(self.frame_01, textvariable=self.app.var_package_name, font=(settings.FONT, settings.FONT_SIZE_M))
+        name.grid(row=1, column=0, columnspan=2, pady=(0, 20))
+
+        # sub-headers
+        labels = ["UE  1:1 Coaching", "Termin(e) pro Woche", "Coaching-Wochen", "Termine insgesamt"]
+        for i, label in enumerate(labels):
+            ttk.Label(self.frame_01, text=label, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=i+2, column=1, sticky="W")
+
+        ues_coach = ttk.Label(self.frame_01, textvariable=self.app.var_ues_coach, font=(settings.FONT, settings.FONT_SIZE_S))
+        ues_coach.grid(row=2, column=0, sticky="E")
+
+        sessions_per_week = ttk.Label(self.frame_01, textvariable=self.app.var_sessions_per_week, font=(settings.FONT, settings.FONT_SIZE_S))
+        sessions_per_week.grid(row=3, column=0, sticky="E")
+
+        duration_in_weeks = ttk.Label(self.frame_01, textvariable=self.app.var_duration_in_weeks, font=(settings.FONT, settings.FONT_SIZE_S))
+        duration_in_weeks.grid(row=4, column=0, sticky="E")
+
+        sessions_with_coach = ttk.Label(self.frame_01, textvariable=self.app.var_sessions_with_coach, font=(settings.FONT, settings.FONT_SIZE_S))
+        sessions_with_coach.grid(row=5, column=0, sticky="E")
+
+        plus = ttk.Label(self.frame_01, text="+", font=(settings.FONT, settings.FONT_SIZE_S))
+        plus.grid(row=6, column=0, columnspan=2)
+
+        bl_service = ttk.Label(self.frame_01, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_S))
+        bl_service.grid(row=7, column=0, columnspan=2)
 
     def _coaching_period(self) -> None:
         """
@@ -90,15 +116,51 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
-        header.grid(row=0, column=0, pady=20)
+        header.grid(row=0, column=0, pady=(20, 50))
+
+        start_date = ttk.Label(self.frame_02, textvariable=self.app.var_start_date, font=(settings.FONT, settings.FONT_SIZE_M))
+        start_date.grid(row=2, column=0)
+
+        until = ttk.Label(self.frame_02, text="-", font=(settings.FONT, settings.FONT_SIZE_M))
+        until.grid(row=3, column=0)
+
+        end_date = ttk.Label(self.frame_02, textvariable=self.app.var_end_date, font=(settings.FONT, settings.FONT_SIZE_M))
+        end_date.grid(row=4, column=0)
 
     def _modules(self) -> None:
         """
         Display details about the chosen modules
         :return None
         """
+        for widget in self.frame_03.winfo_children():
+            widget.destroy()
+
         header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
-        header.grid(row=0, column=0, pady=20)
+        header.grid(row=0, column=0, pady=20, columnspan=2)
+
+        modules_names = []
+        for module, activated in self.app.chosen_modules.items():
+            if activated:
+                modules_names.append(module.name)
+
+        sorted_modules = sorted(modules_names)
+        if len(sorted_modules) < 9:
+            row_counter = 1
+            for module_name in sorted_modules:
+                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=row_counter, column=0, columnspan=2)
+                row_counter += 1
+        else:
+            # first 8 elements in col 0
+            row_counter = 1
+            for module_name in sorted_modules[0:8]:
+                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S), justify="left").grid(row=row_counter, column=0, sticky="E")
+                row_counter += 1
+            # remaining elements in col 1
+            row_counter = 1
+            for module_name in sorted_modules[8:]:
+                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=row_counter, column=1, sticky="W")
+                row_counter += 1
+
 
     def _coach(self) -> None:
         """
@@ -108,6 +170,15 @@ class Overview(ttk.Frame):
         header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
         header.grid(row=0, column=0, pady=20)
 
+        name = ttk.Label(self.frame_04, textvariable=self.app.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M))
+        name.grid(row=1, column=0, pady=(0, 20))
+
+        description = ttk.Label(self.frame_04, textvariable=self.app.var_coach_description, wraplength=200, justify="center")
+        description.grid(row=2, column=0, pady=(0, 10))
+
+        web_link = ttk.Label(self.frame_04, textvariable=self.app.var_coach_web_link)
+        web_link.grid(row=3, column=0)
+
     def _participant(self) -> None:
         """
         Display details about the chosen participant
@@ -115,6 +186,15 @@ class Overview(ttk.Frame):
         """
         header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
         header.grid(row=0, column=0, pady=20)
+
+        name = ttk.Label(self.frame_05, textvariable=self.app.var_participant_name, font=(settings.FONT, settings.FONT_SIZE_M))
+        name.grid(row=1, column=0, pady=(0, 20))
+
+        email = ttk.Label(self.frame_05, textvariable=self.app.var_participant_email, wraplength=200, justify="center")
+        email.grid(row=2, column=0, pady=(0, 10))
+
+        phone = ttk.Label(self.frame_05, textvariable=self.app.var_participant_phone)
+        phone.grid(row=3, column=0)
 
     def _notes(self) -> None:
         """

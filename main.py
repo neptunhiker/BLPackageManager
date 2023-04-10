@@ -14,15 +14,28 @@ class App(ttk.Window):
         self.chosen_coach = None
         self.modules = self.db.get_modules()
         self.chosen_modules = {}
+
+        # package
         self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
         self.chosen_package = None
+        self.var_package_name = ttk.StringVar(value="Bitte Paket auswählen")
+        self.var_ues_coach = ttk.IntVar(value="")
+        self.var_sessions_per_week = ttk.IntVar(value="")
+        self.var_duration_in_weeks = ttk.IntVar(value="")
+        self.var_sessions_with_coach = ttk.IntVar(value="")
+
+        self.var_coach_name = ttk.StringVar()
+        self.var_coach_description = ttk.StringVar()
+        self.var_coach_web_link = ttk.StringVar()
+
+        self.var_participant_name = ttk.StringVar()
         self.var_participant_first_name = ttk.StringVar()
         self.var_participant_last_name = ttk.StringVar()
         self.var_participant_email = ttk.StringVar()
         self.var_participant_phone = ttk.StringVar()
         self.var_start_date = ttk.StringVar()
         self.var_end_date = ttk.StringVar()
-
+        
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")
 
@@ -73,6 +86,14 @@ class App(ttk.Window):
         :return None
         """
         self.pages[page].tkraise()
+
+    def _trace_package(self) -> None:
+        """
+        Trace the variable for chosen package
+        :return None
+        """
+
+        
 
 if __name__ == "__main__":
     db = database.DataBase()

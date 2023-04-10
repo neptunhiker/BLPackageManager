@@ -21,6 +21,11 @@ class Matching(ttk.Frame):
         self.var_coach_description = ttk.StringVar()
         self.var_coach_web_link = ttk.StringVar()
 
+        self.var_participant_first_name = ttk.StringVar()
+        self.var_participant_last_name = ttk.StringVar()
+        self.var_participant_first_name.trace("w", self._update_participant_full_name)
+        self.var_participant_last_name.trace("w", self._update_participant_full_name)
+
         self.available_coaches = len(self.app.coaches)
         self.coach_index_pos = 0
 
@@ -103,9 +108,9 @@ class Matching(ttk.Frame):
 
         # entry widgets
         pady = (5, 20)
-        first_name = ttk.Entry(frame, textvariable=self.app.var_participant_first_name)
+        first_name = ttk.Entry(frame, textvariable=self.var_participant_first_name)
         first_name.grid(row=2, column=0, pady=pady)
-        last_name = ttk.Entry(frame, textvariable=self.app.var_participant_last_name)
+        last_name = ttk.Entry(frame, textvariable=self.var_participant_last_name)
         last_name.grid(row=4, column=0, pady=pady)
         email = ttk.Entry(frame, textvariable=self.app.var_participant_email)
         email.grid(row=6, column=0, pady=pady)
@@ -169,15 +174,14 @@ class Matching(ttk.Frame):
 
         left = ttk.Label(frame, text="<<", cursor="hand2", font=(settings.FONT, settings.FONT_SIZE_S))
         left.grid(row=1, column=0, padx=(0, 20), sticky="N")
-        left.bind("<Button-1>", lambda event: self._change_coach_forward(forward=False))
+        left.bind("<Button-1>", lambda event: self._change_coach(forward=False))
 
         # frame = ttk.Frame(frame)
         # frame.grid(row=1, column=1)
 
-        coach = self.app.coaches[0]
-        self.var_coach_name.set(f"{coach.first_name} {coach.last_name}")
-        self.var_coach_description.set(coach.description)
-        self.var_coach_web_link.set(coach.web_link)
+        self.var_coach_name.set("Bitte Coach auswählen")
+        self.var_coach_description.set("")
+        self.var_coach_web_link.set("")
 
         lbl_name = ttk.Label(frame, textvariable=self.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M),
                              bootstyle="secondary")
@@ -191,9 +195,9 @@ class Matching(ttk.Frame):
 
         right = ttk.Label(frame, text=">>", cursor="hand2", font=(settings.FONT, settings.FONT_SIZE_S))
         right.grid(row=1, column=2, padx=(20, 0), sticky="N")
-        right.bind("<Button-1>", lambda event: self._change_coach_forward(forward=True))
+        right.bind("<Button-1>", lambda event: self._change_coach(forward=True))
 
-    def _change_coach_forward(self, forward: bool=True) -> None:
+    def _change_coach(self, forward: bool=True) -> None:
         """
         Change the coach displayed on the page by going to the next coach in the database
         :return None
@@ -208,7 +212,9 @@ class Matching(ttk.Frame):
         self.var_coach_description.set(coach.description)
         self.var_coach_web_link.set(coach.web_link)
 
-
+        self.app.var_coach_name.set(self.var_coach_name.get())
+        self.app.var_coach_description.set(self.var_coach_description.get())
+        self.app.var_coach_web_link.set(self.var_coach_web_link.get())
 
     def _navigation(self, nav_style: str = "secondary") -> None:
         """
@@ -221,3 +227,13 @@ class Matching(ttk.Frame):
 
         forward = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=True)
         forward.grid(row=0, column=1, sticky="E", padx=(0, 20))
+
+    def _update_participant_full_name(self, a, b, c) -> None:
+        """
+        Update the full name of the participant if the first name or last name of the participant is changed on this page
+        :return None
+        """
+        full_name = f"{self.var_participant_first_name.get()} {self.var_participant_last_name.get()}"
+        self.app.var_participant_first_name.set(self.var_participant_first_name.get())
+        self.app.var_participant_last_name.set(self.var_participant_last_name.get())
+        self.app.var_participant_name.set(full_name)

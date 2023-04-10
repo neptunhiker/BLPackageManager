@@ -151,6 +151,7 @@ class PackagePicker(ttk.Frame):
 
         # deactivate all frames and remove highlight
         self.app.chosen_package = None
+        self._reset_package_variables()
         for selectable_frame in self.selectable_frames:
             selectable_frame.active = False
             selectable_frame.frame.config(style="TFrame")
@@ -161,6 +162,7 @@ class PackagePicker(ttk.Frame):
         if activation_status == False:
             selec_frame.active = True
             self.app.chosen_package = selec_frame.package
+            self._update_package_variables(package=selec_frame.package)
             selec_frame.frame.config(bootstyle="success")
             for label in selec_frame.frame.winfo_children():
                 label.config(bootstyle="inverse-success")
@@ -205,3 +207,26 @@ class PackagePicker(ttk.Frame):
         style = f"inverse-{nav_style}"
         advance = utils.navigation.NavToModulePicker(app=self.app, parent=self.nav_frame, style=style, forward=True)
         advance.grid(row=0, column=1, sticky="E", padx=(0, 20))
+
+    def _reset_package_variables(self) -> None:
+        """
+        Reset all package variables being tracked by the app to None as a result of having deselected a package
+        :return None
+        """
+        self.app.var_package_name.set("Bitte Paket auswählen")
+        self.app.var_ues_coach.set("")
+        self.app.var_sessions_per_week.set("")
+        self.app.var_duration_in_weeks.set("")
+        self.app.var_sessions_with_coach.set("")
+
+    def _update_package_variables(self, package: database.Package) -> None:
+        """
+        Update the package variables so that the app can keep track of what has been chosen
+        :return None
+        """
+
+        self.app.var_package_name.set(package.name)
+        self.app.var_ues_coach.set(package.ues_coach)
+        self.app.var_sessions_per_week.set(package.sessions_per_week)
+        self.app.var_duration_in_weeks.set(package.duration_in_weeks)
+        self.app.var_sessions_with_coach.set(package.sessions_per_week * package.duration_in_weeks)
