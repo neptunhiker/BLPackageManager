@@ -139,26 +139,6 @@ class PackagePicker(ttk.Frame):
             for widget in frame.winfo_children():
                 widget.bind("<Button-1>", lambda event, 
                        selec_frame=selec_frame: self._highlight_frame(selec_frame))
-            # lbl = ttk.Label(frame, text=f"Dauer in Wochen: {package.duration_in_weeks}", justify=justify)
-            # lbl.grid(row=1, column=0)
-
-            # lbl = ttk.Label(frame, text=f"UEs pro Woche: {package.ues_per_week}", justify=justify)
-            # lbl.grid(row=2, column=0)
-
-            # lbl = ttk.Label(frame, text=f"Termine pro Woche: {package.sessions_per_week}", justify=justify)
-            # lbl.grid(row=3, column=0)
-
-            # lbl = ttk.Label(frame, text=f"UEs vom Coach: {package.ues_coach}", justify=justify)
-            # lbl.grid(row=4, column=0)
-
-            # lbl = ttk.Label(frame, text=f"UEs von BeginnerLuft: {package.ues_bl}", justify=justify)
-            # lbl.grid(row=5, column=0)
-
-            # lbl = ttk.Label(frame, text=f"UEs insgesamt: {package.ues}", justify=justify)
-            # lbl.grid(row=6, column=0)
-
-
-
 
     def _highlight_frame(self, selec_frame: SelectableFrame) -> None:
         """
@@ -170,15 +150,17 @@ class PackagePicker(ttk.Frame):
         activation_status = selec_frame.active
 
         # deactivate all frames and remove highlight
+        self.app.chosen_package = None
         for selectable_frame in self.selectable_frames:
             selectable_frame.active = False
             selectable_frame.frame.config(style="TFrame")
             for label in selectable_frame.frame.winfo_children():
                 label.config(style="TLabel")
-        # todo: allow the option to deselct a package
+
         # activate this frame and highlight it
         if activation_status == False:
             selec_frame.active = True
+            self.app.chosen_package = selec_frame.package
             selec_frame.frame.config(bootstyle="success")
             for label in selec_frame.frame.winfo_children():
                 label.config(bootstyle="inverse-success")

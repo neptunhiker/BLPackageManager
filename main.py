@@ -11,7 +11,9 @@ class App(ttk.Window):
         super(App, self).__init__(themename=settings.THEMENAME)
         self.db = database
         self.modules = self.db.get_modules()
+        self.chosen_modules = {}
         self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
+        self.chosen_package = None
 
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")

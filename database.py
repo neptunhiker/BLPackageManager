@@ -55,7 +55,7 @@ class Module(Base):
     __tablename__ = "modules"
 
     id = Column("ID", Integer, primary_key=True, autoincrement=True)
-    name = Column("Title", String)
+    name = Column("Name", String)
     description = Column("Description", String)
     min_ues = Column("MinUEs", Integer)
     max_ues = Column("MaxUEs", Integer)
