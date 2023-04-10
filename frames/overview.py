@@ -144,21 +144,27 @@ class Overview(ttk.Frame):
                 modules_names.append(module.name)
 
         sorted_modules = sorted(modules_names)
-        if len(sorted_modules) < 9:
+
+        rows_in_col_zero = utils.placement.module_place_overview(nr_of_modules=len(sorted_modules))[0]
+        rows_in_col_one = utils.placement.module_place_overview(nr_of_modules=len(sorted_modules))[1]
+
+        if rows_in_col_one == 0:
             row_counter = 1
             for module_name in sorted_modules:
                 ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=row_counter, column=0, columnspan=2)
                 row_counter += 1
         else:
-            # first 8 elements in col 0
+            # first elements in col 0
             row_counter = 1
-            for module_name in sorted_modules[0:8]:
-                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S), justify="left").grid(row=row_counter, column=0, sticky="E")
+            for module_name in sorted_modules[0:rows_in_col_zero]:
+                lbl = ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S))
+                lbl.grid(row=row_counter, column=0, sticky="E", padx=(0, 15))
                 row_counter += 1
             # remaining elements in col 1
             row_counter = 1
-            for module_name in sorted_modules[8:]:
-                ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S)).grid(row=row_counter, column=1, sticky="W")
+            for module_name in sorted_modules[rows_in_col_zero:]:
+                lbl = ttk.Label(self.frame_03, text=module_name, font=(settings.FONT, settings.FONT_SIZE_S))
+                lbl.grid(row=row_counter, column=1, sticky="W")
                 row_counter += 1
 
 
