@@ -10,12 +10,10 @@ class App(ttk.Window):
     def __init__(self, database):
         super(App, self).__init__(themename=settings.THEMENAME)
         self.db = database
-        self.packages = self.db.get_packages()
-        for package in self.packages:
-            print(package.id)    
-        self.packages = sorted(self.packages, key=lambda obj: obj.id)
-        for package in self.packages:
-            print(package.id)
+        self.modules = self.db.get_modules()
+        self.chosen_modules = {}
+        self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
+        self.chosen_package = None
 
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")
@@ -27,9 +25,10 @@ class App(ttk.Window):
         self.pages = {}
 
         self.add_page(page_class=frames.choose_package.PackagePicker)
+        self.add_page(page_class=frames.choose_module.ModulePicker)
 
         # starting page
-        self.show_page(frames.choose_package.PackagePicker)
+        self.show_page(frames.choose_module.ModulePicker)
     
     def add_page(self, page_class: ttk.Frame) -> None:
         """
