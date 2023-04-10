@@ -14,6 +14,10 @@ class App(ttk.Window):
         self.chosen_modules = {}
         self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
         self.chosen_package = None
+        self.var_participant_first_name = ttk.StringVar()
+        self.var_participant_last_name = ttk.StringVar()
+        self.var_participant_email = ttk.StringVar()
+        self.var_participant_phone = ttk.StringVar()
 
         style = ttk.Style()
         style.configure("Custom.TFrame", bordercolor="red")
