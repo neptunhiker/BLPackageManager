@@ -41,6 +41,7 @@ class App(ttk.Window):
         # starting page
         # self.show_page(frames.choose_module.ModulePicker)
         self.show_page(frames.matching.Matching)
+        self.show_page(frames.overview.Overview)
     
     def add_page(self, page_class: ttk.Frame) -> None:
         """
