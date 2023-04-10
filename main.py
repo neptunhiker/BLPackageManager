@@ -26,7 +26,9 @@ class App(ttk.Window):
 
         self.add_page(page_class=frames.matching.Matching)
         self.add_page(page_class=frames.choose_module.ModulePicker)
+        self.add_page(page_class=frames.overview.Overview)
         self.add_page(page_class=frames.choose_package.PackagePicker)
+        self.add_page(page_class=frames.participant_notes.Notes)
 
         # starting page
         # self.show_page(frames.choose_module.ModulePicker)

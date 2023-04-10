@@ -7,10 +7,10 @@ import utils.navigation, utils.placement
 
 MODULE_STYLE = "primary"
 
-class Matching(ttk.Frame):
+class Overview(ttk.Frame):
 
     def __init__(self, app) -> None:
-        super(Matching, self).__init__(master=app)
+        super(Overview, self).__init__(master=app)
         self.app = app
 
         self.style = ttk.Style()
@@ -41,7 +41,7 @@ class Matching(ttk.Frame):
             self.nav_frame.grid_columnconfigure(i, weight=1)
 
         # create content
-        self._title(title="Matching")
+        self._title(title="Coaching-Überblick")
         self._navigation(nav_style=navigation_style)
     
     def _title(self, title: str) -> None:
@@ -59,8 +59,5 @@ class Matching(ttk.Frame):
         :return None
         """
         style = f"inverse-{nav_style}"
-        back = utils.navigation.NavToModulePicker(app=self.app, parent=self.nav_frame, style=style, forward=False)
+        back = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
-
-        forward = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=True)
-        forward.grid(row=0, column=1, sticky="E", padx=(0, 20))

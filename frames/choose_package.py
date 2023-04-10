@@ -52,7 +52,7 @@ class PackagePicker(ttk.Frame):
             self.nav_frame.grid_columnconfigure(i, weight=1)
 
         # create content
-        self._title(title="Coaching Pakete")
+        self._title(title="Coaching-Pakete")
         self.selectable_frames = [SelectableFrame(parent=self.packages_frame, package=package) 
                                   for package in self.app.packages]
 

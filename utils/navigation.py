@@ -54,8 +54,20 @@ class NavToModulePicker(NavLabel):
         super().__init__(app, parent, style, forward)
         self.bind("<Button-1>", lambda event: app.show_page(frames.choose_module.ModulePicker))
 
+class NavToOverview(NavLabel):
+
+    def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool = True):
+        super().__init__(app, parent, style, forward)
+        self.bind("<Button-1>", lambda event: app.show_page(frames.overview.Overview))
+
 class NavToPackagePicker(NavLabel):
 
     def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool = True):
         super().__init__(app, parent, style, forward)
         self.bind("<Button-1>", lambda event: app.show_page(frames.choose_package.PackagePicker))
+
+class NavToParticipantNotes(NavLabel):
+
+    def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool = True):
+        super().__init__(app, parent, style, forward)
+        self.bind("<Button-1>", lambda event: app.show_page(frames.participant_notes.Notes))
