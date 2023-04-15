@@ -122,8 +122,8 @@ class Overview(ttk.Frame):
         start_date = ttk.Label(self.frame_02, textvariable=self.app.var_start_date, font=(settings.FONT, settings.FONT_SIZE_M))
         start_date.grid(row=2, column=0)
 
-        until = ttk.Label(self.frame_02, text="-", font=(settings.FONT, settings.FONT_SIZE_M))
-        until.grid(row=3, column=0)
+        until = ttk.Label(self.frame_02, text="bis", font=(settings.FONT, settings.FONT_SIZE_M))
+        until.grid(row=3, column=0, pady=10)
 
         end_date = ttk.Label(self.frame_02, textvariable=self.app.var_end_date, font=(settings.FONT, settings.FONT_SIZE_M))
         end_date.grid(row=4, column=0)
