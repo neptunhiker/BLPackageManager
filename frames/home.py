@@ -30,7 +30,7 @@ class Home(ttk.Frame):
     
     def _title(self, title: str) -> None:
         """
-        Place a title on the top frame
+        Place a title on the page
         :param title: the title for the page
         """
         if self.bootstyle == "":
