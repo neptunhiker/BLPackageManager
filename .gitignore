@@ -1,3 +1,3 @@
 venv/
-bl_db.db
+databases/
 test.db
