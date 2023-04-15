@@ -83,7 +83,7 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20, columnspan=2)
 
         name = ttk.Label(self.frame_01, textvariable=self.app.var_package_name, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -118,7 +118,7 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=(20, 50))
 
         start_date = ttk.Label(self.frame_02, textvariable=self.app.var_start_date, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -139,7 +139,7 @@ class Overview(ttk.Frame):
             widget.destroy()
 
         header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L),
-            bootstyle=settings.HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20)
 
         modules_names = []
@@ -180,7 +180,7 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20)
 
         name = ttk.Label(self.frame_04, textvariable=self.app.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -198,7 +198,7 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20)
 
         name = ttk.Label(self.frame_05, textvariable=self.app.var_participant_name, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -219,7 +219,7 @@ class Overview(ttk.Frame):
             widget.destroy()
         
         header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=(20, 10))
 
         header_wishes = ttk.Label(self.frame_06, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_S))
