@@ -37,7 +37,7 @@ class PackagePicker(ttk.Frame):
         self.var_package_description = ttk.StringVar()
         package_description = ttk.Label(self.bottom_frame, 
                                         textvariable=self.var_package_description,
-                                        justify="center", bootstyle="secondary",
+                                        justify="center",
                                         font=(settings.FONT, settings.FONT_SIZE_S))
         package_description.grid(row=1, column=0, ipady=20)
 
@@ -81,7 +81,7 @@ class PackagePicker(ttk.Frame):
             frame.grid_columnconfigure(1, weight=1)
             frame.bind("<Button-1>", lambda event, 
                        selec_frame=selec_frame: self._highlight_frame(selec_frame))
-            frame.bind("<Enter>", lambda event, selec_frame=selec_frame: self._on_enter(selec_frame, "secondary"))
+            frame.bind("<Enter>", lambda event, selec_frame=selec_frame: self._on_enter(selec_frame, settings.HOVER_BOOTSTYLE))
             frame.bind("<Leave>", lambda event, selec_frame=selec_frame: self._on_leave(selec_frame))
 
             package = selec_frame.package
@@ -163,9 +163,9 @@ class PackagePicker(ttk.Frame):
             selec_frame.active = True
             self.app.chosen_package = selec_frame.package
             self._update_package_variables(package=selec_frame.package)
-            selec_frame.frame.config(bootstyle="success")
+            selec_frame.frame.config(bootstyle=settings.SELECTION_BOOTSTYLE)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle="inverse-success")
+                label.config(bootstyle=f"inverse-{settings.SELECTION_BOOTSTYLE}")
 
     def _on_enter(self, selec_frame: ttk.Frame, ttkbootstyle: str = "secondary") -> None:
         """

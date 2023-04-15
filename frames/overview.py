@@ -82,7 +82,8 @@ class Overview(ttk.Frame):
         Display details about the chosen package
         :return None
         """
-        header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L), 
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20, columnspan=2)
 
         name = ttk.Label(self.frame_01, textvariable=self.app.var_package_name, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -116,7 +117,8 @@ class Overview(ttk.Frame):
         Display details about the chosen choaching period
         :return None
         """
-        header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L), 
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=(20, 50))
 
         start_date = ttk.Label(self.frame_02, textvariable=self.app.var_start_date, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -136,7 +138,8 @@ class Overview(ttk.Frame):
         for widget in self.frame_03.winfo_children():
             widget.destroy()
 
-        header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L),
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20)
 
         modules_names = []
@@ -176,7 +179,8 @@ class Overview(ttk.Frame):
         Display details about the chosen coach
         :return None
         """
-        header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L), 
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20)
 
         name = ttk.Label(self.frame_04, textvariable=self.app.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -193,7 +197,8 @@ class Overview(ttk.Frame):
         Display details about the chosen participant
         :return None
         """
-        header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), 
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=20)
 
         name = ttk.Label(self.frame_05, textvariable=self.app.var_participant_name, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -213,17 +218,18 @@ class Overview(ttk.Frame):
         for widget in self.frame_06.winfo_children():
             widget.destroy()
         
-        header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L), 
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header.grid(row=0, column=0, pady=(20, 10))
 
-        header_wishes = ttk.Label(self.frame_06, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="secondary")
+        header_wishes = ttk.Label(self.frame_06, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_S))
         header_wishes.grid(row=1, column=0, pady=(0, 5))
         if self.app.notes_wishes is not None:
             wishes = ttk.Label(self.frame_06, text=self.app.notes_wishes.get("1.0", ttk.END), 
                                font=(settings.FONT, settings.FONT_SIZE_XS), wraplength=450, justify="center")
             wishes.grid(row=2, column=0)
 
-        header_other = ttk.Label(self.frame_06, text="Sonstige Besonderheiten", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="secondary")
+        header_other = ttk.Label(self.frame_06, text="Sonstige Besonderheiten", font=(settings.FONT, settings.FONT_SIZE_S))
         header_other.grid(row=3, column=0, pady=(0, 5))
         if self.app.notes_other is not None:
             wishes = ttk.Label(self.frame_06, text=self.app.notes_other.get("1.0", ttk.END), 

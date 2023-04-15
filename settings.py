@@ -1,4 +1,4 @@
-THEMENAME = "beginnerluft"
+THEMENAME = "beginnerluftclassic"
 
 FONT = "Georgia"
 FONT_SIZE_XXXL = 96
@@ -9,3 +9,7 @@ FONT_SIZE_M = 24
 FONT_SIZE_S = 16
 FONT_SIZE_XS = 14
 FONT_SIZE_XXS = 10
+
+HEADING_BOOTSTYLE = ""
+HOVER_BOOTSTYLE = "info"
+SELECTION_BOOTSTYLE = "primary"

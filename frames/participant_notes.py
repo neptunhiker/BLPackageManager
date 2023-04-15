@@ -60,9 +60,11 @@ class Notes(ttk.Frame):
         frame = ttk.Frame(self.bottom_frame)
         frame.grid(row=0, column=0)
 
-        header_wishes = ttk.Label(frame, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header_wishes = ttk.Label(frame, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_L),
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header_wishes.grid(row=0, column=0, pady=(150, 0), padx=(0, 30))
-        header_other = ttk.Label(frame, text="Sonstige Besonderheiten", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        header_other = ttk.Label(frame, text="Sonstige Besonderheiten", font=(settings.FONT, settings.FONT_SIZE_L),
+            bootstyle=settings.HEADING_BOOTSTYLE)
         header_other.grid(row=0, column=1, pady=(150, 0))
 
         notes_wishes = ttk.Text(frame, height=7, width=40)

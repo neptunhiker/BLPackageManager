@@ -1,3 +1,4 @@
+
 import ttkbootstrap as ttk
 from tkinter import ttk as tkinterttk
 
@@ -5,14 +6,14 @@ import database
 import settings
 import utils.navigation, utils.placement
 
-MODULE_STYLE = "primary"
+MODULE_STYLE = "secondary"
 
 class SelectableFrame:
 
     def __init__(self, parent: ttk.Frame, module: database.Module) -> None:
         self.module = module
         self.active = False
-        self.frame = ttk.Frame(parent, cursor="hand2", bootstyle=MODULE_STYLE)
+        self.frame = ttk.Frame(parent, cursor="hand2")
 
 
 class ModulePicker(ttk.Frame):
@@ -55,7 +56,6 @@ class ModulePicker(ttk.Frame):
         self.doc_frame.grid_columnconfigure(1, weight=1)
         self.doc_frame.grid_rowconfigure(0, weight=1)
 
-
         self.bottom_frame.grid_propagate(False)
         self.module_frame.grid_propagate(False)
         self.doc_frame.grid_propagate(False)
@@ -89,7 +89,8 @@ class ModulePicker(ttk.Frame):
         :return None
         """
 
-        label = ttk.Label(self.module_frame, text="Verfügbare Module", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="light")
+        label = ttk.Label(self.module_frame, text="Verfügbare Module", font=(settings.FONT, settings.FONT_SIZE_L),
+            bootstyle=settings.HEADING_BOOTSTYLE)
         label.grid(row=0, column=0, pady=(100, 0))
 
         nr_of_modules = len(self.app.modules)
@@ -118,11 +119,10 @@ class ModulePicker(ttk.Frame):
             module = modules.pop(0)
             selectable_mini_frame = SelectableFrame(parent, module=module)
             selectable_mini_frame.frame.grid(row=0, column=col, padx=padx, pady=pady)
-            label = ttk.Label(selectable_mini_frame.frame, text=module.name, width=width, anchor=anchor, font=font_up, cursor="hand2", 
-                              bootstyle=f"inverse-{MODULE_STYLE}")
+            label = ttk.Label(selectable_mini_frame.frame, text=module.name, width=width, anchor=anchor, font=font_up, cursor="hand2")
             label.grid(row=0, column=0, pady=(pady, 0))
             label = ttk.Label(selectable_mini_frame.frame, text=self.default_services[module.default], width=width, anchor=anchor, 
-                              font=font_down, cursor="hand2", bootstyle=f"inverse-{MODULE_STYLE}")
+                              font=font_down, cursor="hand2")
             label.grid(row=1, column=0, pady=pady)
             selectable_mini_frame.frame.bind("<Button-1>", lambda event, frame=selectable_mini_frame: self._highlight_frame(frame))
             selectable_mini_frame.frame.bind("<Enter>", lambda event, frame=selectable_mini_frame: self._on_enter(frame))
@@ -157,7 +157,8 @@ class ModulePicker(ttk.Frame):
         frame = ttk.Frame(self.doc_frame)
         frame.grid(row=0, column=1)
 
-        name = ttk.Label(frame, textvariable=self.var_module_name, font=(settings.FONT, settings.FONT_SIZE_L), bootstyle="secondary")
+        name = ttk.Label(frame, textvariable=self.var_module_name, font=(settings.FONT, settings.FONT_SIZE_L), 
+            bootstyle=settings.HEADING_BOOTSTYLE)
         name.grid(row=0, column=1, pady=(0, 50))
         
         default = ttk.Label(frame, textvariable=self.var_module_default, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -192,18 +193,18 @@ class ModulePicker(ttk.Frame):
         if activation_status == False:
             selec_frame.active = True
             self.app.chosen_modules[selec_frame.module] = selec_frame.active
-            selec_frame.frame.config(bootstyle="success")
+            selec_frame.frame.config(bootstyle=settings.SELECTION_BOOTSTYLE)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle="inverse-success")
+                label.config(bootstyle=f"inverse-{settings.SELECTION_BOOTSTYLE}")
         else:
             selec_frame.active = False
             self.app.chosen_modules[selec_frame.module] = selec_frame.active
-            selec_frame.frame.config(bootstyle=MODULE_STYLE)
+            selec_frame.frame.config(bootstyle=settings.HOVER_BOOTSTYLE)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle=f"inverse-{MODULE_STYLE}")
+                label.config(bootstyle=f"inverse-{settings.HOVER_BOOTSTYLE}")
 
 
-    def _on_enter(self, selec_frame: ttk.Frame, ttkbootstyle: str = "secondary") -> None:
+    def _on_enter(self, selec_frame: ttk.Frame) -> None:
         """
         Change the background color of the frame
         :param selec_frame: the selectable frame object that contains the frame to be highlighted
@@ -213,9 +214,9 @@ class ModulePicker(ttk.Frame):
         if selec_frame.active:
             pass
         else:
-            selec_frame.frame.config(bootstyle=ttkbootstyle)
+            selec_frame.frame.config(bootstyle=settings.HOVER_BOOTSTYLE)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle=f"inverse-{ttkbootstyle}")
+                label.config(bootstyle=f"inverse-{settings.HOVER_BOOTSTYLE}")
 
         self.var_module_name.set(selec_frame.module.name)
         self.var_module_default.set(self.default_services[selec_frame.module.default])
@@ -230,11 +231,11 @@ class ModulePicker(ttk.Frame):
         if selec_frame.active:
             pass
         else:
-            # selec_frame.frame.config(style="TFrame")
-            selec_frame.frame.config(bootstyle=MODULE_STYLE)
+            selec_frame.frame.config(style="TFrame")
+            # selec_frame.frame.config(bootstyle=MODULE_STYLE)
             for label in selec_frame.frame.winfo_children():
-                # label.config(style="TLabel")
-                label.config(bootstyle=f"inverse-{MODULE_STYLE}")
+                label.config(style="TLabel")
+                # label.config(bootstyle=f"inverse-{MODULE_STYLE}")
     
         self.var_module_name.set("")
         self.var_module_default.set("")

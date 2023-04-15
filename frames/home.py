@@ -17,7 +17,7 @@ class Home(ttk.Frame):
         self.app = app
 
         self.style = ttk.Style()
-        self.bootstyle = ""
+        self.bootstyle = "primary"
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
         
