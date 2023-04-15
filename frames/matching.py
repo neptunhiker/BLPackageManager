@@ -10,8 +10,8 @@ import utils.navigation, utils.placement, utils.dialogs
 MODULE_STYLE = "primary"
 locale.setlocale(locale.LC_ALL, "de_DE")
 
-class Matching(ttk.Frame):
 
+class Matching(ttk.Frame):
     def __init__(self, app) -> None:
         super(Matching, self).__init__(master=app)
         self.app = app
@@ -33,7 +33,7 @@ class Matching(ttk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
-        
+
         self.top_frame = ttk.Frame(self, bootstyle="primary")
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
@@ -51,12 +51,16 @@ class Matching(ttk.Frame):
         # self.part_frame.grid_rowconfigure(0, weight=1)
         self.part_frame.grid_columnconfigure(0, weight=1)
 
-        ttk.Separator(self.bottom_frame, orient="vertical").grid(row=0, column=1, sticky="NS", pady=75)
+        ttk.Separator(self.bottom_frame, orient="vertical").grid(
+            row=0, column=1, sticky="NS", pady=75
+        )
         self.start_frame = ttk.Frame(self.bottom_frame)
         self.start_frame.grid(row=0, column=2, sticky="NSEW")
         self.start_frame.grid_columnconfigure(0, weight=1)
         # self.start_frame.grid_rowconfigure(0, weight=1)
-        ttk.Separator(self.bottom_frame, orient="vertical").grid(row=0, column=3, sticky="NS", pady=75)
+        ttk.Separator(self.bottom_frame, orient="vertical").grid(
+            row=0, column=3, sticky="NS", pady=75
+        )
 
         self.coach_frame = ttk.Frame(self.bottom_frame)
         self.coach_frame.grid(row=0, column=4, sticky="NSEW")
@@ -81,14 +85,19 @@ class Matching(ttk.Frame):
         self._coaching_dates()
         self._coach()
         self._navigation(nav_style=navigation_style)
-    
+
     def _title(self, title: str) -> None:
         """
         Place a title on the top frame
         :param title: the title for the page
         """
-        title = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
-                          font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
+        title = ttk.Label(
+            self.top_frame,
+            text=title,
+            bootstyle="inverse-primary",
+            font=(settings.FONT, settings.FONT_SIZE_XL),
+            justify="center",
+        )
         title.grid(row=0, column=0)
 
     def _participant(self) -> None:
@@ -100,11 +109,21 @@ class Matching(ttk.Frame):
         frame.grid(row=0, column=0, pady=(100, 0))
 
         # labels
-        ttk.Label(frame, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L)).grid(row=0, column=0, columnspan=2, pady=(0, 30), padx=0)
-        ttk.Label(frame, text="Vorname", bootstyle="secondary").grid(row=1, column=0, sticky="W")
-        ttk.Label(frame, text="Nachname", bootstyle="secondary").grid(row=3, column=0, sticky="W")
-        ttk.Label(frame, text="E-Mail", bootstyle="secondary").grid(row=5, column=0, sticky="W")
-        ttk.Label(frame, text="Telefon", bootstyle="secondary").grid(row=7, column=0, sticky="W")
+        ttk.Label(
+            frame, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L)
+        ).grid(row=0, column=0, columnspan=2, pady=(0, 30), padx=0)
+        ttk.Label(frame, text="Vorname", bootstyle="secondary").grid(
+            row=1, column=0, sticky="W"
+        )
+        ttk.Label(frame, text="Nachname", bootstyle="secondary").grid(
+            row=3, column=0, sticky="W"
+        )
+        ttk.Label(frame, text="E-Mail", bootstyle="secondary").grid(
+            row=5, column=0, sticky="W"
+        )
+        ttk.Label(frame, text="Telefon", bootstyle="secondary").grid(
+            row=7, column=0, sticky="W"
+        )
 
         # entry widgets
         pady = (5, 20)
@@ -125,22 +144,43 @@ class Matching(ttk.Frame):
         frame = ttk.Frame(self.start_frame)
         frame.grid(row=0, column=0, pady=(100, 0))
 
-        header_start_date = ttk.Label(frame, text="Geplantes Startdatum", font=(settings.FONT, settings.FONT_SIZE_L), cursor="hand2")
+        header_start_date = ttk.Label(
+            frame,
+            text="Geplantes Startdatum",
+            font=(settings.FONT, settings.FONT_SIZE_L),
+            cursor="hand2",
+        )
         header_start_date.grid(row=0, column=0)
-        header_start_date.bind("<Button-1>", lambda event, parent=header_start_date: self._choose_date(parent))
+        header_start_date.bind(
+            "<Button-1>",
+            lambda event, parent=header_start_date: self._choose_date(parent),
+        )
 
-        start_date = ttk.Label(frame, textvariable=self.var_start_date, font=(settings.FONT, settings.FONT_SIZE_XL), cursor="hand2",
-                               bootstyle="secondary")
+        start_date = ttk.Label(
+            frame,
+            textvariable=self.var_start_date,
+            font=(settings.FONT, settings.FONT_SIZE_XL),
+            cursor="hand2",
+            bootstyle="secondary",
+        )
         start_date.grid(row=1, column=0, pady=(40, 0))
-        start_date.bind("<Button-1>", lambda event, parent=header_start_date: self._choose_date(parent))
+        start_date.bind(
+            "<Button-1>",
+            lambda event, parent=header_start_date: self._choose_date(parent),
+        )
 
-        header_end_date = ttk.Label(frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S))
+        header_end_date = ttk.Label(
+            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S)
+        )
         header_end_date.grid(row=2, column=0, pady=(100, 0))
 
-        end_date = ttk.Label(frame, textvariable=self.var_end_date, font=(settings.FONT, settings.FONT_SIZE_M),
-                               bootstyle="secondary")
+        end_date = ttk.Label(
+            frame,
+            textvariable=self.var_end_date,
+            font=(settings.FONT, settings.FONT_SIZE_M),
+            bootstyle="secondary",
+        )
         end_date.grid(row=3, column=0, pady=(40, 0))
-
 
     def _choose_date(self, parent: ttk.Label) -> None:
         """
@@ -153,7 +193,9 @@ class Matching(ttk.Frame):
         self.var_start_date.set(date_str_start_date)
 
         if self.app.chosen_package is not None:
-            end_date = start_date + datetime.timedelta(weeks=self.app.chosen_package.duration_in_weeks)
+            end_date = start_date + datetime.timedelta(
+                weeks=self.app.chosen_package.duration_in_weeks
+            )
             date_str_end_date = datetime.datetime.strftime(end_date, "%d. %B %Y")
             self.app.var_end_date.set(date_str_end_date)
             self.var_end_date.set(date_str_end_date)
@@ -168,11 +210,19 @@ class Matching(ttk.Frame):
         frame = ttk.Frame(self.coach_frame)
         frame.grid(row=0, column=0, pady=(100, 0))
 
-        header = ttk.Label(frame, text="Gewählter Coach", font=(settings.FONT, settings.FONT_SIZE_L), cursor="hand2", width=15,
-                           anchor="center")
+        header = ttk.Label(
+            frame,
+            text="Gewählter Coach",
+            font=(settings.FONT, settings.FONT_SIZE_L),
+            cursor="hand2",
+            width=15,
+            anchor="center",
+        )
         header.grid(row=0, column=1, pady=(0, 100))
 
-        left = ttk.Label(frame, text="<<", cursor="hand2", font=(settings.FONT, settings.FONT_SIZE_S))
+        left = ttk.Label(
+            frame, text="<<", cursor="hand2", font=(settings.FONT, settings.FONT_SIZE_S)
+        )
         left.grid(row=1, column=0, padx=(0, 20), sticky="N")
         left.bind("<Button-1>", lambda event: self._change_coach(forward=False))
 
@@ -183,21 +233,32 @@ class Matching(ttk.Frame):
         self.var_coach_description.set("")
         self.var_coach_web_link.set("")
 
-        lbl_name = ttk.Label(frame, textvariable=self.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M),
-                             bootstyle="secondary")
+        lbl_name = ttk.Label(
+            frame,
+            textvariable=self.var_coach_name,
+            font=(settings.FONT, settings.FONT_SIZE_M),
+            bootstyle="secondary",
+        )
         lbl_name.grid(row=1, column=1, pady=(0, 30))
 
-        lbl_description = ttk.Label(frame, textvariable=self.var_coach_description, wraplength=200, justify="center")
+        lbl_description = ttk.Label(
+            frame,
+            textvariable=self.var_coach_description,
+            wraplength=200,
+            justify="center",
+        )
         lbl_description.grid(row=2, column=1, pady=(0, 20))
 
         lbl_web_link = ttk.Label(frame, textvariable=self.var_coach_web_link)
         lbl_web_link.grid(row=3, column=1)
 
-        right = ttk.Label(frame, text=">>", cursor="hand2", font=(settings.FONT, settings.FONT_SIZE_S))
+        right = ttk.Label(
+            frame, text=">>", cursor="hand2", font=(settings.FONT, settings.FONT_SIZE_S)
+        )
         right.grid(row=1, column=2, padx=(20, 0), sticky="N")
         right.bind("<Button-1>", lambda event: self._change_coach(forward=True))
 
-    def _change_coach(self, forward: bool=True) -> None:
+    def _change_coach(self, forward: bool = True) -> None:
         """
         Change the coach displayed on the page by going to the next coach in the database
         :return None
@@ -222,10 +283,14 @@ class Matching(ttk.Frame):
         :return None
         """
         style = f"inverse-{nav_style}"
-        back = utils.navigation.NavToModulePicker(app=self.app, parent=self.nav_frame, style=style, forward=False)
+        back = utils.navigation.NavToModulePicker(
+            app=self.app, parent=self.nav_frame, style=style, forward=False
+        )
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
-        forward = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=True)
+        forward = utils.navigation.NavToParticipantNotes(
+            app=self.app, parent=self.nav_frame, style=style, forward=True
+        )
         forward.grid(row=0, column=1, sticky="E", padx=(0, 20))
 
     def _update_participant_full_name(self, a, b, c) -> None:

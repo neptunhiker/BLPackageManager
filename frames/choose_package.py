@@ -64,9 +64,9 @@ class PackagePicker(ttk.Frame):
         Place a title on the top frame
         :param title: the title for the page
         """
-        title = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
+        title_lbl = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
                           font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
-        title.grid(row=0, column=0)
+        title_lbl.grid(row=0, column=0)
 
     def _packages(self) -> None:
         """

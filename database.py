@@ -5,6 +5,7 @@ from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
+
 class BLCrew(Base):
     __tablename__ = "BLCrew"
 
@@ -16,7 +17,9 @@ class BLCrew(Base):
     phone = Column("Phone", String)
     description = Column("Description", String)
 
-    def __init__(self, id, title, first_name, last_name, email, phone, description) -> None:
+    def __init__(
+        self, id, title, first_name, last_name, email, phone, description
+    ) -> None:
         self.id = id
         self.title = title
         self.first_name = first_name
@@ -27,6 +30,7 @@ class BLCrew(Base):
 
     def __str__(self) -> str:
         return f"BeginnerLuft Mitarbeiter:In {self.title} {self.first_name} {self.last_name}"
+
 
 class Coach(Base):
     __tablename__ = "coaches"
@@ -39,7 +43,9 @@ class Coach(Base):
     description = Column("Description", String)
     web_link = Column("WebsiteLink", String)
 
-    def __init__(self, title, first_name, last_name, email, description, web_link) -> None:
+    def __init__(
+        self, title, first_name, last_name, email, description, web_link
+    ) -> None:
         self.id = self.id
         self.title = title
         self.first_name = first_name
@@ -50,7 +56,8 @@ class Coach(Base):
 
     def __str__(self) -> str:
         return f"Coach {self.title} {self.first_name} {self.last_name}"
-    
+
+
 class Module(Base):
     __tablename__ = "modules"
 
@@ -62,8 +69,9 @@ class Module(Base):
     default_owner = Column("DefaultOwner", String)
     default = Column("Default", Boolean)
 
-    def __init__(self, name, description, min_ues, max_ues, default_owner, 
-                 default: bool = False) -> None:
+    def __init__(
+        self, name, description, min_ues, max_ues, default_owner, default: bool = False
+    ) -> None:
         self.id = self.id
         self.name = name
         self.description = description
@@ -89,8 +97,18 @@ class Package(Base):
     ues_coach = Column("UEsCoach", Integer)
     ues_bl = Column("UEsBL", Integer)
 
-    def __init__(self, id, name, duration_in_weeks, ues, sessions_per_week, ues_per_week,
-                 description, ues_coach, ues_bl) -> None:
+    def __init__(
+        self,
+        id,
+        name,
+        duration_in_weeks,
+        ues,
+        sessions_per_week,
+        ues_per_week,
+        description,
+        ues_coach,
+        ues_bl,
+    ) -> None:
         self.id = id
         self.name = name
         self.duration_in_weeks = duration_in_weeks
@@ -100,9 +118,10 @@ class Package(Base):
         self.description = description
         self.ues_coach = ues_coach
         self.ues_bl = ues_bl
-    
+
     def __str__(self) -> str:
         return f"Package {self.name}. Dauer: {self.duration_in_weeks} Wochen. UEs Coach: {self.ues_coach}"
+
 
 class Participant(Base):
     __tablename__ = "participants"
@@ -115,7 +134,9 @@ class Participant(Base):
     phone = Column("Phone", String)
     description = Column("Description", String)
 
-    def __init__(self, id, title, first_name, last_name, email, phone, description) -> None:
+    def __init__(
+        self, id, title, first_name, last_name, email, phone, description
+    ) -> None:
         self.id = id
         self.title = title
         self.first_name = first_name
@@ -140,75 +161,133 @@ def create_db(path: str) -> None:
     session = Session()
 
     # BL Crew
-    session.add(BLCrew(id=1, title="Frau", first_name="Beata", last_name="Rozwadowska", 
-                      email="beata@testemail.com", phone="12312234234", 
-                      description="Beata ist Co-Gründerin von BeginnerLuft"))
-    session.add(BLCrew(id=2, title="Frau", first_name="Lea", last_name="Bergmann", 
-                    email="lea@testemail.com", phone="3485304", 
-                    description="Lea ist Co-Gründerin von BeginnerLuft"))
-    
-    # Coaches
-    session.add(Coach(title="Herr", first_name="Paul", last_name="Matthes",
-                      email="paul@testmail.com", description="Paul ist ein erfahrener Coach, der sich auf systemisches Coaching spezialisiert hat.", 
-                      web_link="wwww.paul.de"))
-    session.add(Coach(title="Frau", first_name="Anna", last_name="Hohmann",
-                      email="anna@testmail.com", description="Anna ist zertifizierte Coach seit 2021.", 
-                      web_link="wwww.anna.de"))
-    
-    # Modules
-    session.add(Module(name="Erstgespräch & Matching",
-                       description="Erstgespräch zwischen Teilnehmer:In und BeginnerLuft inkl. Matching mit einem erfahrenen und passenden Coach.",
-                       min_ues=2,
-                       max_ues=6,
-                       default_owner="BeginnerLuft",
-                       default=True))
+    session.add(
+        BLCrew(
+            id=1,
+            title="Frau",
+            first_name="Beata",
+            last_name="Rozwadowska",
+            email="beata@testemail.com",
+            phone="12312234234",
+            description="Beata ist Co-Gründerin von BeginnerLuft",
+        )
+    )
+    session.add(
+        BLCrew(
+            id=2,
+            title="Frau",
+            first_name="Lea",
+            last_name="Bergmann",
+            email="lea@testemail.com",
+            phone="3485304",
+            description="Lea ist Co-Gründerin von BeginnerLuft",
+        )
+    )
 
-    session.add(Module(name="Zielbeschreibung",
-                       description="Ergründung des Coaching Ziels.",
-                       min_ues=2,
-                       max_ues=4,
-                       default_owner="Coach"))
+    # Coaches
+    session.add(
+        Coach(
+            title="Herr",
+            first_name="Paul",
+            last_name="Matthes",
+            email="paul@testmail.com",
+            description="Paul ist ein erfahrener Coach, der sich auf systemisches Coaching spezialisiert hat.",
+            web_link="wwww.paul.de",
+        )
+    )
+    session.add(
+        Coach(
+            title="Frau",
+            first_name="Anna",
+            last_name="Hohmann",
+            email="anna@testmail.com",
+            description="Anna ist zertifizierte Coach seit 2021.",
+            web_link="wwww.anna.de",
+        )
+    )
+
+    # Modules
+    session.add(
+        Module(
+            name="Erstgespräch & Matching",
+            description="Erstgespräch zwischen Teilnehmer:In und BeginnerLuft inkl. Matching mit einem erfahrenen und passenden Coach.",
+            min_ues=2,
+            max_ues=6,
+            default_owner="BeginnerLuft",
+            default=True,
+        )
+    )
+
+    session.add(
+        Module(
+            name="Zielbeschreibung",
+            description="Ergründung des Coaching Ziels.",
+            min_ues=2,
+            max_ues=4,
+            default_owner="Coach",
+        )
+    )
 
     # Packages
-    session.add(Package(id=1, name="A", 
-                        duration_in_weeks=8,
-                        ues=52,
-                        sessions_per_week=2,
-                        ues_per_week=4,
-                        description="Paket A hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
-                        ues_coach=32,
-                        ues_bl=20))
-    session.add(Package(id=2, name="B", 
-                        duration_in_weeks=8,
-                        ues=52,
-                        sessions_per_week=1,
-                        ues_per_week=3,
-                        description="Paket B hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
-                        ues_coach=24,
-                        ues_bl=28))
-    
-    session.add(Package(id=3, name="C", 
-                        duration_in_weeks=12,
-                        ues=52,
-                        sessions_per_week=2,
-                        ues_per_week=4,
-                        description="Paket C hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
-                        ues_coach=48,
-                        ues_bl=4))
-    
-    session.add(Package(id=4, name="D", 
-                        duration_in_weeks=12,
-                        ues=52,
-                        sessions_per_week=1,
-                        ues_per_week=3,
-                        description="Paket D hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
-                        ues_coach=36,
-                        ues_bl=16))
-    
+    session.add(
+        Package(
+            id=1,
+            name="A",
+            duration_in_weeks=8,
+            ues=52,
+            sessions_per_week=2,
+            ues_per_week=4,
+            description="Paket A hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
+            ues_coach=32,
+            ues_bl=20,
+        )
+    )
+    session.add(
+        Package(
+            id=2,
+            name="B",
+            duration_in_weeks=8,
+            ues=52,
+            sessions_per_week=1,
+            ues_per_week=3,
+            description="Paket B hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
+            ues_coach=24,
+            ues_bl=28,
+        )
+    )
+
+    session.add(
+        Package(
+            id=3,
+            name="C",
+            duration_in_weeks=12,
+            ues=52,
+            sessions_per_week=2,
+            ues_per_week=4,
+            description="Paket C hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
+            ues_coach=48,
+            ues_bl=4,
+        )
+    )
+
+    session.add(
+        Package(
+            id=4,
+            name="D",
+            duration_in_weeks=12,
+            ues=52,
+            sessions_per_week=1,
+            ues_per_week=3,
+            description="Paket D hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
+            ues_coach=36,
+            ues_bl=16,
+        )
+    )
+
     session.commit()
 
-class DataBase:
 
+class DataBase:
     def __init__(self, path: str = "bl_db.db") -> None:
         self.engine = create_engine(f"sqlite:///{path}", echo=False)
         self.Session = sessionmaker(bind=self.engine)
@@ -220,7 +299,7 @@ class DataBase:
         """
         session = self.Session()
         return session.query(Coach).all()
-    
+
     def get_crew_members(self) -> list:
         """
         Get all crew members from database
@@ -228,7 +307,7 @@ class DataBase:
         """
         session = self.Session()
         return session.query(BLCrew).all()
-    
+
     def get_modules(self) -> list:
         """
         Get all modules from database
@@ -236,7 +315,7 @@ class DataBase:
         """
         session = self.Session()
         return session.query(Module).all()
-    
+
     def get_packages(self) -> list:
         """
         Get all packages from database
@@ -244,7 +323,7 @@ class DataBase:
         """
         session = self.Session()
         return session.query(Package).all()
-    
+
     def get_participants(self) -> list:
         """
         Get all participants from database
@@ -253,8 +332,8 @@ class DataBase:
         session = self.Session()
         return session.query(Participant).all()
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     # create_db(path="test.db")
 
     db = DataBase(path="bl_db.db")
@@ -270,4 +349,3 @@ if __name__ == "__main__":
 
     for participant in db.get_participants():
         print(participant)
-
