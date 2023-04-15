@@ -50,19 +50,20 @@ class App(ttk.Window):
         self.grid_rowconfigure(0, weight=1)
 
         self.pages = {}
-
         self.add_page(page_class=frames.matching.Matching)
         self.add_page(page_class=frames.choose_module.ModulePicker)
         self.add_page(page_class=frames.overview.Overview)
         self.add_page(page_class=frames.choose_package.PackagePicker)
         self.add_page(page_class=frames.participant_notes.Notes)
+        self.add_page(page_class=frames.home.Home)
 
         # starting page
         # self.show_page(frames.choose_package.PackagePicker)
         # self.show_page(frames.choose_module.ModulePicker)
         # self.show_page(frames.matching.Matching)
-        self.show_page(frames.overview.Overview)
-    
+        # self.show_page(frames.overview.Overview)
+        self.show_page(frames.home.Home)
+            
     def add_page(self, page_class: ttk.Frame) -> None:
         """
         Add a page to the app
