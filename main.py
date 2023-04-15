@@ -64,6 +64,8 @@ class App(ttk.Window):
         # self.show_page(frames.matching.Matching)
         # self.show_page(frames.overview.Overview)
         self.show_page(frames.home.Home)
+
+        self._menu()
             
     def add_page(self, page_class: ttk.Frame) -> None:
         """
@@ -87,6 +89,31 @@ class App(ttk.Window):
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         self.geometry("%dx%d+0+0" % (w, h))  # sets screen to full size
         self.state('zoomed')
+
+    def _menu(self) -> None:
+        # Create a menu
+        menu = ttk.Menu(self)
+
+        # Create a sub-menu for "Package"
+        package_menu = tk.Menu(menu, tearoff=0)
+        package_menu.add_command(label="Option 1")
+        package_menu.add_command(label="Option 2")
+        menu.add_cascade(label="Package", menu=package_menu)
+
+        # Create a sub-menu for "Coach"
+        coach_menu = tk.Menu(menu, tearoff=0)
+        coach_menu.add_command(label="Option 1")
+        coach_menu.add_command(label="Option 2")
+        menu.add_cascade(label="Coach", menu=coach_menu)
+
+        # Create a sub-menu for "Matching"
+        matching_menu = tk.Menu(menu, tearoff=0)
+        matching_menu.add_command(label="Option 1")
+        matching_menu.add_command(label="Option 2")
+        menu.add_cascade(label="Matching", menu=matching_menu)
+
+        # Attach the menu to the window
+        root.config(menu=menu)
 
     def show_page(self, page) -> None:
         """
