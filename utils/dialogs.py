@@ -1,5 +1,8 @@
 import datetime
+import ttkbootstrap as ttk
 from ttkbootstrap.dialogs import Querybox
+from tkinter import filedialog
+
 
 def choose_date(title: str, start_date: datetime.date = datetime.date.today(), bootstyle: str = "primary", parent=None) -> datetime.date:
     """
@@ -20,3 +23,20 @@ def choose_date(title: str, start_date: datetime.date = datetime.date.today(), b
                                    bootstyle=bootstyle)
     
     return chosen_datetime
+
+
+def ask_for_filename(parent: ttk.Window, title: str, initialdir: str, initialfile: str,
+            defaultextension: str=".pdf") -> str:
+    """
+    Ask user for a file name to save a file
+    :param parent: the window to place the dialog on top of
+    :param initialdir: the directory that the dialog starts in
+    :param initialfile: the file selected upton opening of the dialog
+    :param defaultextension: default extension to append to file
+    :return chosen file_name
+    """
+
+    file_name = filedialog.asksaveasfilename(parent=parent, title=title, initialdir=initialdir, initialfile=initialfile,
+                                             defaultextension=defaultextension)
+    
+    return file_name

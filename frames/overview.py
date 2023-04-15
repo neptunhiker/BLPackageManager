@@ -1,10 +1,11 @@
-from PIL import ImageGrab
 import ttkbootstrap as ttk
 from tkinter import ttk as tkinterttk
+from tkinter import filedialog
 
 import database
+import os
 import settings
-import utils.navigation, utils.placement
+import utils.dialogs, utils.navigation, utils.placement, utils.screenshot
 
 MODULE_STYLE = "primary"
 
@@ -247,22 +248,18 @@ class Overview(ttk.Frame):
         back = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
-        btn = ttk.Button(self.nav_frame, text="Als .png speichern", command= lambda: self._save_as_jpeg(), cursor="hand2")
-        btn.grid(row=0, column=1, sticky="E", padx=(0, 20))
+        btn = ttk.Button(self.nav_frame, text="Als .png speichern", command= lambda: self._save_overviewpage_as_png(), cursor="hand2")
+        btn.grid(row=0, column=1, sticky="E", ipady=7, padx=(0, 20))
 
-    def _save_as_jpeg(self) -> None:
+    def _save_overviewpage_as_png(self) -> None:
         """
-        Save the screen to a jpeg file
+        Save the overview page as a png screenshot
+        :return None
         """
-        geometry = self.app.winfo_geometry()
-
-        # Split the string into a list of four strings
-        geometry = geometry.split("+")
-        width, height, left, top = map(int, geometry[0].split("x") + geometry[1:])
-
-        image = ImageGrab.grab(bbox=(left, top, width, height + top))
-        file_name = f"Coaching - {self.app.var_participant_name.get()}.png"
-        image.save(file_name)
+        suggested_file_name = f"Coaching für {self.app.var_participant_name.get()} - {self.app.var_start_date.get()}"
+        file_name = utils.dialogs.ask_for_filename(parent=self.app, title="Save overview", initialdir="screenshots",
+                                                    initialfile=suggested_file_name, defaultextension=".png")
+        utils.screenshot.save_app_window_as_png(app=self.app, file_name=file_name, height_adjustment=-75)
 
     def _update(self) -> None:
         """

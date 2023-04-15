@@ -1,1 +1,1 @@
-import navigation
+import dialogs, navigation, screenshot
