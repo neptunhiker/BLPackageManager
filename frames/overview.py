@@ -249,7 +249,7 @@ class Overview(ttk.Frame):
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
         btn = ttk.Button(self.nav_frame, text="Als .png speichern", command= lambda: self._save_overviewpage_as_png(), cursor="hand2")
-        btn.grid(row=0, column=1, sticky="E", ipady=7, padx=(0, 20))
+        btn.grid(row=0, column=1, sticky="E", padx=(0, 20))
 
     def _save_overviewpage_as_png(self) -> None:
         """
