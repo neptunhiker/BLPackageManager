@@ -95,25 +95,16 @@ class App(ttk.Window):
         menu = ttk.Menu(self)
 
         # Create a sub-menu for "Package"
-        package_menu = tk.Menu(menu, tearoff=0)
-        package_menu.add_command(label="Option 1")
-        package_menu.add_command(label="Option 2")
-        menu.add_cascade(label="Package", menu=package_menu)
-
-        # Create a sub-menu for "Coach"
-        coach_menu = tk.Menu(menu, tearoff=0)
-        coach_menu.add_command(label="Option 1")
-        coach_menu.add_command(label="Option 2")
-        menu.add_cascade(label="Coach", menu=coach_menu)
-
-        # Create a sub-menu for "Matching"
-        matching_menu = tk.Menu(menu, tearoff=0)
-        matching_menu.add_command(label="Option 1")
-        matching_menu.add_command(label="Option 2")
-        menu.add_cascade(label="Matching", menu=matching_menu)
+        package_menu = ttk.Menu(menu, tearoff=0)
+        package_menu.add_command(label="Coaching-Pakete", command= lambda: self.show_page(frames.choose_package.PackagePicker))
+        package_menu.add_command(label="BeginnerLuft Service", command= lambda: self.show_page(frames.choose_module.ModulePicker))
+        package_menu.add_command(label="Matching", command= lambda: self.show_page(frames.matching.Matching))
+        package_menu.add_command(label="Coaching-Notizen", command= lambda: self.show_page(frames.participant_notes.Notes))
+        package_menu.add_command(label="Coaching-Überblick", command= lambda: self.show_page(frames.overview.Overview))
+        menu.add_cascade(label="Coaching Menü", menu=package_menu)
 
         # Attach the menu to the window
-        root.config(menu=menu)
+        self.config(menu=menu)
 
     def show_page(self, page) -> None:
         """
