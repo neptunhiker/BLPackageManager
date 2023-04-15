@@ -288,7 +288,8 @@ def create_db(path: str) -> None:
 
 
 class DataBase:
-    def __init__(self, path: str = "bl_db.db") -> None:
+
+    def __init__(self, path: str = "databases/bl_db.db") -> None:
         self.engine = create_engine(f"sqlite:///{path}", echo=False)
         self.Session = sessionmaker(bind=self.engine)
 
