@@ -1,6 +1,6 @@
-THEMENAME = "beginnerluftclassic"
+THEMENAME = "beginnerluftdark"
 
-FONT = "Georgia"
+FONT = "YuMincho"
 FONT_SIZE_XXXL = 96
 FONT_SIZE_XXL = 64
 FONT_SIZE_XL = 48
@@ -10,7 +10,30 @@ FONT_SIZE_S = 16
 FONT_SIZE_XS = 14
 FONT_SIZE_XXS = 10
 
-HEADING_BOOTSTYLE = ""
-HOVER_BOOTSTYLE = "info"
-OVERVIEW_HEADING_BOOTSTYLE = ""
-SELECTION_BOOTSTYLE = "primary"
+if THEMENAME == "beginngerluftclassic":
+    HEADING_BOOTSTYLE = ""
+    HOVER_BOOTSTYLE = "info"
+    OVERVIEW_HEADING_BOOTSTYLE = ""
+    SELECTION_BOOTSTYLE = "primary"
+elif THEMENAME == "beginnerluftdark":
+    HEADING_BOOTSTYLE = "primary"
+    HOVER_BOOTSTYLE = "info"
+    OVERVIEW_HEADING_BOOTSTYLE = "primary"
+    SELECTION_BOOTSTYLE = "primary"
+
+
+if __name__ == "__main__":
+    import tkinter as tk
+    from tkinter import font
+
+    root = tk.Tk()
+
+    fonts = list(font.families())
+    fonts.sort()
+
+    for f in fonts:
+        label = tk.Label(root, text=f, font=(f, 12))
+        label.pack()
+        print(f)
+
+    root.mainloop()
