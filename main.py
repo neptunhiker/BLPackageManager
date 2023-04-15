@@ -1,3 +1,5 @@
+import configparser
+import subprocess
 import ttkbootstrap as ttk
 
 import database
@@ -104,6 +106,22 @@ class App(ttk.Window):
         
 
 if __name__ == "__main__":
+
+    current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).strip().decode("utf-8")
+    print(current_branch)
+
+    if current_branch == "main":
+        current_branch = "prd"
+    elif current_branch == "tst":
+        current_branch = "tst"
+    else:
+        current_branch = "dev"
+    print(current_branch)    
+
+    config = configparser.ConfigParser()
+    config.read(".config")
+    database_name = config.get(current_branch, "database_name")
+    print(database_name)
     db = database.DataBase()
     app = App(database=db)
     app.mainloop()
