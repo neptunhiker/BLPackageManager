@@ -5,6 +5,9 @@ import frames
 import settings
 import config_database
 
+from ttkcreator import __main__
+
+
 class App(ttk.Window):
 
     def __init__(self, database, active_environment: str):

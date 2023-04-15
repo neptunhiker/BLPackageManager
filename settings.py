@@ -1,4 +1,4 @@
-THEMENAME = "vapor"
+THEMENAME = "beginnerluft"
 
 FONT = "Georgia"
 FONT_SIZE_XXXL = 96
