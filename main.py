@@ -1,17 +1,16 @@
-import configparser
-import subprocess
 import ttkbootstrap as ttk
 
 import database
 import frames
 import settings
-
+import config_database
 
 class App(ttk.Window):
 
-    def __init__(self, database):
+    def __init__(self, database, active_environment: str):
         super(App, self).__init__(themename=settings.THEMENAME, title="BeginnerLuft")
         self.db = database
+        self.active_environment = active_environment
         self.coaches = db.get_coaches()
         self.chosen_coach = None
         self.modules = self.db.get_modules()
@@ -106,22 +105,10 @@ class App(ttk.Window):
         
 
 if __name__ == "__main__":
+    config_database = config_database.ConfigDataBase()
+    database_name = config_database.get_database_info()["database name"]
+    environment = config_database.get_database_info()["environment"]
 
-    current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).strip().decode("utf-8")
-    print(current_branch)
-
-    if current_branch == "main":
-        current_branch = "prd"
-    elif current_branch == "tst":
-        current_branch = "tst"
-    else:
-        current_branch = "dev"
-    print(current_branch)    
-
-    config = configparser.ConfigParser()
-    config.read(".config")
-    database_name = config.get(current_branch, "database_name")
-    print(database_name)
-    db = database.DataBase()
-    app = App(database=db)
+    db = database.DataBase(path=database_name)
+    app = App(database=db, active_environment=environment)
     app.mainloop()

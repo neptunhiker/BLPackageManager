@@ -1,1 +1,1 @@
-import dialogs, navigation, screenshot
+import config_database, dialogs, navigation, screenshot
