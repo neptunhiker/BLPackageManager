@@ -43,5 +43,9 @@ class Home(ttk.Frame):
         title.grid(row=0, column=0)
         title.bind("<Button->", lambda event: self.app.show_page(frames.choose_package.PackagePicker))
 
+        active_environment = ttk.Label(self.top_frame, text=f"- {self.app.active_environment} -", bootstyle=bootstyle, 
+        font=(settings.FONT, settings.FONT_SIZE_S))
+        active_environment.grid(row=1, column=0, pady=(0, 50))
+
 
 
