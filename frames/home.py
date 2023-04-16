@@ -8,7 +8,6 @@ from PIL import Image, ImageTk
 import settings
 import utils.navigation, utils.placement
 
-MODULE_STYLE = "primary"
 
 class Home(ttk.Frame):
 

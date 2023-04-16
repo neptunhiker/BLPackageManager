@@ -38,7 +38,7 @@ class PackagePicker(ttk.Frame):
         package_description = ttk.Label(self.bottom_frame, 
                                         textvariable=self.var_package_description,
                                         justify="center",
-                                        font=(settings.FONT, settings.FONT_SIZE_S))
+                                        font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="primary")
         package_description.grid(row=1, column=0, ipady=20)
 
         self.bottom_frame.grid_propagate(False)
