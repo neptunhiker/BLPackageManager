@@ -111,7 +111,7 @@ class ModulePicker(ttk.Frame):
         padx = 10
         pady = 5
         anchor = "center"
-        width = 22
+        width = 20
         font_up = (settings.FONT, settings.FONT_SIZE_S)
         font_down = (settings.FONT, settings.FONT_SIZE_XS)
 
