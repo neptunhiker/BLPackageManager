@@ -89,7 +89,7 @@ class ModulePicker(ttk.Frame):
         :return None
         """
 
-        label = ttk.Label(self.module_frame, text="Verfügbare Module", font=(settings.FONT, settings.FONT_SIZE_L),
+        label = ttk.Label(self.module_frame, text="Zusatzmodule", font=(settings.FONT, settings.FONT_SIZE_L),
             bootstyle=settings.HEADING_BOOTSTYLE)
         label.grid(row=0, column=0, pady=(100, 0))
 
@@ -111,7 +111,7 @@ class ModulePicker(ttk.Frame):
         padx = 10
         pady = 5
         anchor = "center"
-        width = 20
+        width = 22
         font_up = (settings.FONT, settings.FONT_SIZE_S)
         font_down = (settings.FONT, settings.FONT_SIZE_XS)
 
@@ -120,10 +120,10 @@ class ModulePicker(ttk.Frame):
             selectable_mini_frame = SelectableFrame(parent, module=module)
             selectable_mini_frame.frame.grid(row=0, column=col, padx=padx, pady=pady)
             label = ttk.Label(selectable_mini_frame.frame, text=module.name, width=width, anchor=anchor, font=font_up, cursor="hand2")
-            label.grid(row=0, column=0, pady=(pady, 0))
-            label = ttk.Label(selectable_mini_frame.frame, text=self.default_services[module.default], width=width, anchor=anchor, 
-                              font=font_down, cursor="hand2")
-            label.grid(row=1, column=0, pady=pady)
+            label.grid(row=0, column=0, pady=(pady, 0), ipady=10)
+            # label = ttk.Label(selectable_mini_frame.frame, text=self.default_services[module.default], width=width, anchor=anchor, 
+            #                   font=font_down, cursor="hand2")
+            # label.grid(row=1, column=0, pady=pady)
             selectable_mini_frame.frame.bind("<Button-1>", lambda event, frame=selectable_mini_frame: self._highlight_frame(frame))
             selectable_mini_frame.frame.bind("<Enter>", lambda event, frame=selectable_mini_frame: self._on_enter(frame))
             selectable_mini_frame.frame.bind("<Leave>", lambda event, frame=selectable_mini_frame: self._on_leave(frame))
@@ -161,11 +161,11 @@ class ModulePicker(ttk.Frame):
             bootstyle=settings.HEADING_BOOTSTYLE)
         name.grid(row=0, column=1, pady=(0, 50))
         
-        default = ttk.Label(frame, textvariable=self.var_module_default, font=(settings.FONT, settings.FONT_SIZE_M))
-        default.grid(row=1, column=1, pady=(0, 20))
+        # default = ttk.Label(frame, textvariable=self.var_module_default, font=(settings.FONT, settings.FONT_SIZE_M))
+        # default.grid(row=1, column=1, pady=(0, 20))
 
         description = ttk.Label(frame, textvariable=self.var_module_description, wraplength=200, justify="center")
-        description.grid(row=2, column=1)
+        description.grid(row=1, column=1)
 
 
     def _navigation(self, nav_style: str = "secondary") -> None:
