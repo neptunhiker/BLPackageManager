@@ -106,6 +106,9 @@ class ModulePicker(ttk.Frame):
         if sum(grid_system.values()) > 10:
             frame_row_2 = ttk.Frame(self.module_frame_center)
             frame_row_2.grid(row=2, column=0, pady=20)
+        if sum(grid_system.values()) > 15:
+            frame_row_3 = ttk.Frame(self.module_frame_center)
+            frame_row_3.grid(row=3, column=0, pady=20)
 
         # label settings
         padx = 10
@@ -147,6 +150,10 @@ class ModulePicker(ttk.Frame):
         # row 2 frame and modules
         for col in range(grid_system[2]):
             create_frame_and_modules(parent=frame_row_2)
+
+        # row 3 frame and modules
+        for col in range(grid_system[3]):
+            create_frame_and_modules(parent=frame_row_3)
 
     
     def _documentation(self) -> None:
