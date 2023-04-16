@@ -15,6 +15,7 @@ class Matching(ttk.Frame):
     def __init__(self, app) -> None:
         super(Matching, self).__init__(master=app)
         self.app = app
+        self.app.var_package_name.trace("w", self._trace_chosen_package)
         self.var_start_date = ttk.StringVar()
         self.var_end_date = ttk.StringVar()
         self.var_coach_name = ttk.StringVar()
@@ -301,3 +302,22 @@ class Matching(ttk.Frame):
         self.app.var_participant_first_name.set(self.var_participant_first_name.get())
         self.app.var_participant_last_name.set(self.var_participant_last_name.get())
         self.app.var_participant_name.set(full_name)
+
+    def _trace_chosen_package(self, a, b, c) -> None:
+        """
+        Update the end date if a start date has been selected and a package is chosen
+        :return None
+        """
+        # If start date has been chosen already then update the end date based on package selection
+        if self.var_start_date.get() != "":
+            if self.app.var_package_name.get() == "Bitte Paket auswählen":
+                self.app.var_end_date.set("")
+                self.var_end_date.set(self.app.var_package_name.get())
+            else:
+                end_date = datetime.datetime.strptime(self.var_start_date.get(), "%d. %B %Y") + datetime.timedelta(
+                    weeks=self.app.chosen_package.duration_in_weeks
+                )
+                date_str_end_date = datetime.datetime.strftime(end_date, "%d. %B %Y")
+                self.app.var_end_date.set(date_str_end_date)
+                self.var_end_date.set(date_str_end_date)
+

@@ -230,3 +230,5 @@ class PackagePicker(ttk.Frame):
         self.app.var_sessions_per_week.set(package.sessions_per_week)
         self.app.var_duration_in_weeks.set(package.duration_in_weeks)
         self.app.var_sessions_with_coach.set(package.sessions_per_week * package.duration_in_weeks)
+
+        
