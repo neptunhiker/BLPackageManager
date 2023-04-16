@@ -1,7 +1,8 @@
-THEMENAME = "beginnerluftearthy"
+# THEMENAME = "beginnerluftearthy"
+THEMENAME = "beginnerluftdark"
 
-FONT = "Georgia"
-SIZE_ADJUSTER = 0
+FONT = "DIN condensed"
+SIZE_ADJUSTER = 3
 FONT_SIZE_XXXL = 96 + SIZE_ADJUSTER
 FONT_SIZE_XXL = 64 + SIZE_ADJUSTER
 FONT_SIZE_XL = 48 + SIZE_ADJUSTER

@@ -25,6 +25,8 @@ class Home(ttk.Frame):
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
 
+        self.top_frame.bind("<Button->", lambda event: self.app.show_page(frames.choose_package.PackagePicker))
+
         self._title(title="BeginnerLuft")
     
     def _title(self, title: str) -> None:
