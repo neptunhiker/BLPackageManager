@@ -3,6 +3,7 @@ from tkinter import ttk as tkinterttk
 from tkinter import filedialog
 
 import database
+import frames
 import os
 import settings
 import utils.dialogs, utils.navigation, utils.placement, utils.screenshot
@@ -36,20 +37,20 @@ class Overview(ttk.Frame):
         self.bottom_frame.grid_rowconfigure(0, weight=1)
         self.bottom_frame.grid_rowconfigure(2, weight=1)
 
-        self.frame_01 = ttk.Frame(self.bottom_frame, bootstyle="seondary")
+        self.frame_01 = ttk.Frame(self.bottom_frame)
         self.frame_01.grid(row=0, column=0, sticky="NSEW")
         ttk.Separator(self.bottom_frame, orient="vertical").grid(row=0, column=1, rowspan=3, sticky="NS", pady=20)
-        self.frame_02 = ttk.Frame(self.bottom_frame, bootstyle="seondary")
+        self.frame_02 = ttk.Frame(self.bottom_frame)
         self.frame_02.grid(row=0, column=2, sticky="NSEW")
         ttk.Separator(self.bottom_frame, orient="vertical").grid(row=0, column=3, rowspan=3, sticky="NS", pady=20)
-        self.frame_03 = ttk.Frame(self.bottom_frame, bootstyle="seondary")
+        self.frame_03 = ttk.Frame(self.bottom_frame)
         self.frame_03.grid(row=0, column=4, sticky="NSEW")
         ttk.Separator(self.bottom_frame, orient="horizontal").grid(row=1, column=0, columnspan=5, sticky="EW", padx=20)
-        self.frame_04 = ttk.Frame(self.bottom_frame, bootstyle="seondary")
+        self.frame_04 = ttk.Frame(self.bottom_frame)
         self.frame_04.grid(row=2, column=0, sticky="NSEW")
-        self.frame_05 = ttk.Frame(self.bottom_frame, bootstyle="seondary")
+        self.frame_05 = ttk.Frame(self.bottom_frame)
         self.frame_05.grid(row=2, column=2, sticky="NSEW")
-        self.frame_06 = ttk.Frame(self.bottom_frame, bootstyle="seondary")
+        self.frame_06 = ttk.Frame(self.bottom_frame)
         self.frame_06.grid(row=2, column=4, sticky="NSEW")
 
         frames = [self.frame_01, self.frame_02, self.frame_03, self.frame_04, self.frame_05, self.frame_06]
@@ -83,8 +84,9 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
         header.grid(row=0, column=0, pady=20, columnspan=2)
+        header.bind("<Button-1>", lambda event: self.app.show_page(frames.choose_package.PackagePicker))
 
         name = ttk.Label(self.frame_01, textvariable=self.app.var_package_name, font=(settings.FONT, settings.FONT_SIZE_M))
         name.grid(row=1, column=0, columnspan=2, pady=(0, 20))
@@ -118,8 +120,10 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
         header.grid(row=0, column=0, pady=(20, 50))
+        header.bind("<Button-1>", lambda event: self.app.show_page(frames.matching.Matching))
+
 
         start_date = ttk.Label(self.frame_02, textvariable=self.app.var_start_date, font=(settings.FONT, settings.FONT_SIZE_M))
         start_date.grid(row=2, column=0)
@@ -139,8 +143,10 @@ class Overview(ttk.Frame):
             widget.destroy()
 
         header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L),
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
         header.grid(row=0, column=0, pady=20)
+        header.bind("<Button-1>", lambda event: self.app.show_page(frames.choose_module.ModulePicker))
+        
 
         modules_names = []
         for module, activated in self.app.chosen_modules.items():
@@ -180,8 +186,9 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
         header.grid(row=0, column=0, pady=20)
+        header.bind("<Button-1>", lambda event: self.app.show_page(frames.matching.Matching))
 
         name = ttk.Label(self.frame_04, textvariable=self.app.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M))
         name.grid(row=1, column=0, pady=(0, 20))
@@ -198,8 +205,9 @@ class Overview(ttk.Frame):
         :return None
         """
         header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
         header.grid(row=0, column=0, pady=20)
+        header.bind("<Button-1>", lambda event: self.app.show_page(frames.matching.Matching))
 
         name = ttk.Label(self.frame_05, textvariable=self.app.var_participant_name, font=(settings.FONT, settings.FONT_SIZE_M))
         name.grid(row=1, column=0, pady=(0, 20))
@@ -219,8 +227,9 @@ class Overview(ttk.Frame):
             widget.destroy()
         
         header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE)
+            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
         header.grid(row=0, column=0, pady=(20, 10))
+        header.bind("<Button-1>", lambda event: self.app.show_page(frames.participant_notes.Notes))
 
         header_wishes = ttk.Label(self.frame_06, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_S))
         header_wishes.grid(row=1, column=0, pady=(0, 5))
