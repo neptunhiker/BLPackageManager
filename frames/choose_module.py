@@ -33,7 +33,7 @@ class ModulePicker(ttk.Frame):
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
         
-        self.top_frame = ttk.Frame(self, bootstyle="primary")
+        self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
@@ -61,7 +61,7 @@ class ModulePicker(ttk.Frame):
         self.doc_frame.grid_propagate(False)
 
         # navigation frame
-        navigation_style = "secondary"
+        navigation_style = settings.ALL_BOOTSTYLE_FRAME_BOTTOM
         self.nav_frame = ttk.Frame(self, bootstyle=navigation_style)
         self.nav_frame.grid(row=2, column=0, sticky="NSEW")
         self.nav_frame.grid_rowconfigure(0, weight=1)
@@ -79,7 +79,7 @@ class ModulePicker(ttk.Frame):
         Place a title on the top frame
         :param title: the title for the page
         """
-        title = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
+        title = ttk.Label(self.top_frame, text=title, bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_FRAME_TOP_BG}",
                           font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
         title.grid(row=0, column=0)
 
@@ -90,7 +90,7 @@ class ModulePicker(ttk.Frame):
         """
 
         label = ttk.Label(self.module_frame, text="Zusatzmodule", font=(settings.FONT, settings.FONT_SIZE_L),
-            bootstyle=settings.HEADING_BOOTSTYLE)
+                          bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING)
         label.grid(row=0, column=0, pady=(100, 0))
 
         nr_of_modules = len(self.app.modules)
@@ -164,8 +164,8 @@ class ModulePicker(ttk.Frame):
         frame = ttk.Frame(self.doc_frame)
         frame.grid(row=0, column=1)
 
-        name = ttk.Label(frame, textvariable=self.var_module_name, font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.HEADING_BOOTSTYLE)
+        name = ttk.Label(frame, textvariable=self.var_module_name, font=(settings.FONT, settings.FONT_SIZE_L),
+                         bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING)
         name.grid(row=0, column=1, pady=(0, 50))
         
         # default = ttk.Label(frame, textvariable=self.var_module_default, font=(settings.FONT, settings.FONT_SIZE_M))
@@ -200,15 +200,15 @@ class ModulePicker(ttk.Frame):
         if activation_status == False:
             selec_frame.active = True
             self.app.chosen_modules[selec_frame.module] = selec_frame.active
-            selec_frame.frame.config(bootstyle=settings.SELECTION_BOOTSTYLE)
+            selec_frame.frame.config(bootstyle=settings.ALL_BOOTSTYLE_SELECT)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle=f"inverse-{settings.SELECTION_BOOTSTYLE}")
+                label.config(bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_SELECT}")
         else:
             selec_frame.active = False
             self.app.chosen_modules[selec_frame.module] = selec_frame.active
-            selec_frame.frame.config(bootstyle=settings.HOVER_BOOTSTYLE)
+            selec_frame.frame.config(bootstyle=settings.ALL_BOOTSTYLE_HOVER)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle=f"inverse-{settings.HOVER_BOOTSTYLE}")
+                label.config(bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_HOVER}")
 
 
     def _on_enter(self, selec_frame: ttk.Frame) -> None:
@@ -221,9 +221,9 @@ class ModulePicker(ttk.Frame):
         if selec_frame.active:
             pass
         else:
-            selec_frame.frame.config(bootstyle=settings.HOVER_BOOTSTYLE)
+            selec_frame.frame.config(bootstyle=settings.ALL_BOOTSTYLE_HOVER)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle=f"inverse-{settings.HOVER_BOOTSTYLE}")
+                label.config(bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_HOVER}")
 
         self.var_module_name.set(selec_frame.module.name)
         self.var_module_default.set(self.default_services[selec_frame.module.default])

@@ -5,6 +5,7 @@ import database
 import utils.navigation
 import settings
 
+
 class SelectableFrame:
 
     def __init__(self, parent: ttk.Frame, package: database.Package) -> None:
@@ -24,7 +25,7 @@ class PackagePicker(ttk.Frame):
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
         
-        self.top_frame = ttk.Frame(self, bootstyle="primary")
+        self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
@@ -38,13 +39,14 @@ class PackagePicker(ttk.Frame):
         package_description = ttk.Label(self.bottom_frame, 
                                         textvariable=self.var_package_description,
                                         justify="center",
-                                        font=(settings.FONT, settings.FONT_SIZE_S), bootstyle="primary")
+                                        font=(settings.FONT, settings.FONT_SIZE_S),
+                                        bootstyle=settings.PACKAGE_BOOTSTYLE_DESCRIPTION)
         package_description.grid(row=1, column=0, ipady=20)
 
         self.bottom_frame.grid_propagate(False)
 
         # navigation frame
-        navigation_style = "secondary"
+        navigation_style = settings.ALL_BOOTSTYLE_FRAME_BOTTOM
         self.nav_frame = ttk.Frame(self, bootstyle=navigation_style)
         self.nav_frame.grid(row=2, column=0, sticky="NSEW")
         self.nav_frame.grid_rowconfigure(0, weight=1)
@@ -64,8 +66,8 @@ class PackagePicker(ttk.Frame):
         Place a title on the top frame
         :param title: the title for the page
         """
-        title_lbl = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
-                          font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
+        title_lbl = ttk.Label(self.top_frame, text=title, bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_FRAME_TOP_BG}",
+                              font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
         title_lbl.grid(row=0, column=0)
 
     def _packages(self) -> None:
@@ -81,7 +83,7 @@ class PackagePicker(ttk.Frame):
             frame.grid_columnconfigure(1, weight=1)
             frame.bind("<Button-1>", lambda event, 
                        selec_frame=selec_frame: self._highlight_frame(selec_frame))
-            frame.bind("<Enter>", lambda event, selec_frame=selec_frame: self._on_enter(selec_frame, settings.HOVER_BOOTSTYLE))
+            frame.bind("<Enter>", lambda event, selec_frame=selec_frame: self._on_enter(selec_frame, settings.ALL_BOOTSTYLE_HOVER))
             frame.bind("<Leave>", lambda event, selec_frame=selec_frame: self._on_leave(selec_frame))
 
             package = selec_frame.package
@@ -163,9 +165,9 @@ class PackagePicker(ttk.Frame):
             selec_frame.active = True
             self.app.chosen_package = selec_frame.package
             self._update_package_variables(package=selec_frame.package)
-            selec_frame.frame.config(bootstyle=settings.SELECTION_BOOTSTYLE)
+            selec_frame.frame.config(bootstyle=settings.ALL_BOOTSTYLE_SELECT)
             for label in selec_frame.frame.winfo_children():
-                label.config(bootstyle=f"inverse-{settings.SELECTION_BOOTSTYLE}")
+                label.config(bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_SELECT}")
 
     def _on_enter(self, selec_frame: ttk.Frame, ttkbootstyle: str = "secondary") -> None:
         """

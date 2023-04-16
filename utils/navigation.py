@@ -4,11 +4,10 @@ import frames
 import settings
 
 
-
 class NavLabel(ttk.Label):
 
-    BACKWARD_LABEL = "<-- Zurück"
-    FORWARD_LABEL = "Vor -->"
+    BACKWARD_LABEL = "<<"
+    FORWARD_LABEL = ">>"
 
     def __init__(self, app: ttk.Window, parent: ttk.Frame, style: str, forward: bool=True):
         if forward:

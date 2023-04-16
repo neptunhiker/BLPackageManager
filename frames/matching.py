@@ -35,7 +35,7 @@ class Matching(ttk.Frame):
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
 
-        self.top_frame = ttk.Frame(self, bootstyle="primary")
+        self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
@@ -73,7 +73,7 @@ class Matching(ttk.Frame):
         self.coach_frame.grid_propagate(False)
 
         # navigation frame
-        navigation_style = "secondary"
+        navigation_style = settings.ALL_BOOTSTYLE_FRAME_BOTTOM
         self.nav_frame = ttk.Frame(self, bootstyle=navigation_style)
         self.nav_frame.grid(row=2, column=0, sticky="NSEW")
         self.nav_frame.grid_rowconfigure(0, weight=1)
@@ -95,7 +95,7 @@ class Matching(ttk.Frame):
         title = ttk.Label(
             self.top_frame,
             text=title,
-            bootstyle="inverse-primary",
+            bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_FRAME_TOP_BG}",
             font=(settings.FONT, settings.FONT_SIZE_XL),
             justify="center",
         )
@@ -111,7 +111,7 @@ class Matching(ttk.Frame):
 
         # labels
         ttk.Label(
-            frame, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle=settings.HEADING_BOOTSTYLE
+            frame, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         ).grid(row=0, column=0, columnspan=2, pady=(0, 30), padx=0)
         ttk.Label(frame, text="Vorname").grid(
             row=1, column=0, sticky="W"
@@ -150,7 +150,7 @@ class Matching(ttk.Frame):
             text="Geplantes Startdatum",
             font=(settings.FONT, settings.FONT_SIZE_L),
             cursor="hand2",
-            bootstyle=settings.HEADING_BOOTSTYLE
+            bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header_start_date.grid(row=0, column=0)
         header_start_date.bind(
@@ -171,7 +171,7 @@ class Matching(ttk.Frame):
         )
 
         header_end_date = ttk.Label(
-            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle=settings.HEADING_BOOTSTYLE
+            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header_end_date.grid(row=2, column=0, pady=(100, 0))
 
@@ -214,10 +214,9 @@ class Matching(ttk.Frame):
             frame,
             text="Gewählter Coach",
             font=(settings.FONT, settings.FONT_SIZE_L),
-            cursor="hand2",
             width=15,
             anchor="center",
-            bootstyle=settings.HEADING_BOOTSTYLE
+            bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header.grid(row=0, column=1, pady=(0, 100))
 

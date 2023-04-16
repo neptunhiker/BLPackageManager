@@ -24,7 +24,7 @@ class Overview(ttk.Frame):
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
         
-        self.top_frame = ttk.Frame(self, bootstyle="primary")
+        self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
@@ -61,7 +61,7 @@ class Overview(ttk.Frame):
         self.bottom_frame.grid_propagate(False)
 
         # navigation frame
-        navigation_style = "secondary"
+        navigation_style = settings.ALL_BOOTSTYLE_FRAME_BOTTOM
         self.nav_frame = ttk.Frame(self, bootstyle=navigation_style)
         self.nav_frame.grid(row=2, column=0, sticky="NSEW")
         self.nav_frame.grid_rowconfigure(0, weight=1)
@@ -83,8 +83,8 @@ class Overview(ttk.Frame):
         Display details about the chosen package
         :return None
         """
-        header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
+        header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L),
+                           bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=20, columnspan=2)
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.choose_package.PackagePicker))
 
@@ -119,11 +119,10 @@ class Overview(ttk.Frame):
         Display details about the chosen choaching period
         :return None
         """
-        header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
+        header = ttk.Label(self.frame_02, text="Coaching-Zeitraum", font=(settings.FONT, settings.FONT_SIZE_L),
+                           bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=(20, 50))
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.matching.Matching))
-
 
         start_date = ttk.Label(self.frame_02, textvariable=self.app.var_start_date, font=(settings.FONT, settings.FONT_SIZE_M))
         start_date.grid(row=2, column=0)
@@ -143,7 +142,7 @@ class Overview(ttk.Frame):
             widget.destroy()
 
         header = ttk.Label(self.frame_03, text="BeginnerLuft Service", font=(settings.FONT, settings.FONT_SIZE_L),
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
+                           bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=20)
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.choose_module.ModulePicker))
         
@@ -179,14 +178,13 @@ class Overview(ttk.Frame):
                 lbl.grid(row=row_counter, column=1, sticky="W")
                 row_counter += 1
 
-
     def _coach(self) -> None:
         """
         Display details about the chosen coach
         :return None
         """
-        header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
+        header = ttk.Label(self.frame_04, text="Coach", font=(settings.FONT, settings.FONT_SIZE_L),
+                           bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=20)
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.matching.Matching))
 
@@ -204,8 +202,8 @@ class Overview(ttk.Frame):
         Display details about the chosen participant
         :return None
         """
-        header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
+        header = ttk.Label(self.frame_05, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L),
+                           bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=20)
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.matching.Matching))
 
@@ -226,8 +224,8 @@ class Overview(ttk.Frame):
         for widget in self.frame_06.winfo_children():
             widget.destroy()
         
-        header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L), 
-            bootstyle=settings.OVERVIEW_HEADING_BOOTSTYLE, cursor="hand2")
+        header = ttk.Label(self.frame_06, text="Weitere Infos", font=(settings.FONT, settings.FONT_SIZE_L),
+                           bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=(20, 10))
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.participant_notes.Notes))
 
@@ -250,7 +248,7 @@ class Overview(ttk.Frame):
         Place a title on the top frame
         :param title: the title for the page
         """
-        title = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
+        title = ttk.Label(self.top_frame, text=title, bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_FRAME_TOP_BG}",
                           font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
         title.grid(row=0, column=0)
 
@@ -263,7 +261,8 @@ class Overview(ttk.Frame):
         back = utils.navigation.NavToParticipantNotes(app=self.app, parent=self.nav_frame, style=style, forward=False)
         back.grid(row=0, column=0, sticky="W", padx=(20, 0))
 
-        btn = ttk.Button(self.nav_frame, text="Als .png speichern", command= lambda: self._save_overviewpage_as_png(), cursor="hand2")
+        btn = ttk.Button(self.nav_frame, text="Als .png speichern", command=lambda: self._save_overviewpage_as_png(),
+                         cursor="hand2", bootstyle="primary")
         btn.grid(row=0, column=1, sticky="E", padx=(0, 20))
 
     def _save_overviewpage_as_png(self) -> None:

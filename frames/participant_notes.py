@@ -20,7 +20,7 @@ class Notes(ttk.Frame):
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
         
-        self.top_frame = ttk.Frame(self, bootstyle="primary")
+        self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
@@ -32,7 +32,7 @@ class Notes(ttk.Frame):
         self.bottom_frame.grid_propagate(False)
 
         # navigation frame
-        navigation_style = "secondary"
+        navigation_style = settings.ALL_BOOTSTYLE_FRAME_BOTTOM
         self.nav_frame = ttk.Frame(self, bootstyle=navigation_style)
         self.nav_frame.grid(row=2, column=0, sticky="NSEW")
         self.nav_frame.grid_rowconfigure(0, weight=1)
@@ -49,7 +49,7 @@ class Notes(ttk.Frame):
         Place a title on the top frame
         :param title: the title for the page
         """
-        title = ttk.Label(self.top_frame, text=title, bootstyle="inverse-primary",
+        title = ttk.Label(self.top_frame, text=title, bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_FRAME_TOP_BG}",
                           font=(settings.FONT, settings.FONT_SIZE_XL), justify="center")
         title.grid(row=0, column=0)
 
@@ -61,10 +61,10 @@ class Notes(ttk.Frame):
         frame.grid(row=0, column=0)
 
         header_wishes = ttk.Label(frame, text="Besondere Wünsche", font=(settings.FONT, settings.FONT_SIZE_L),
-            bootstyle=settings.HEADING_BOOTSTYLE)
+                                  bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING)
         header_wishes.grid(row=0, column=0, pady=(150, 0), padx=(0, 30))
         header_other = ttk.Label(frame, text="Sonstige Besonderheiten", font=(settings.FONT, settings.FONT_SIZE_L),
-            bootstyle=settings.HEADING_BOOTSTYLE)
+                                 bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING)
         header_other.grid(row=0, column=1, pady=(150, 0))
 
         notes_wishes = ttk.Text(frame, height=7, width=40)
