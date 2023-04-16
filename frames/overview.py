@@ -6,7 +6,7 @@ import database
 import frames
 import os
 import settings
-import utils.dialogs, utils.navigation, utils.placement, utils.screenshot
+import utils.dialogs, utils.navigation, utils.placement, utils.screenshot, utils.toasts
 
 MODULE_STYLE = "primary"
 
@@ -15,7 +15,6 @@ class Overview(ttk.Frame):
     def __init__(self, app) -> None:
         super(Overview, self).__init__(master=app)
         self.app = app
-
         self.bind("<Enter>", lambda event: self._update())
         self.style = ttk.Style()
 
@@ -77,6 +76,7 @@ class Overview(ttk.Frame):
         self._participant()
         self._notes()
         self._navigation(nav_style=navigation_style)
+
     
     def _package(self) -> None:
         """
@@ -270,10 +270,36 @@ class Overview(ttk.Frame):
         Save the overview page as a png screenshot
         :return None
         """
-        suggested_file_name = f"Coaching für {self.app.var_participant_name.get()} - {self.app.var_start_date.get()}"
-        file_name = utils.dialogs.ask_for_filename(parent=self.app, title="Save overview", initialdir="screenshots",
-                                                    initialfile=suggested_file_name, defaultextension=".png")
-        utils.screenshot.save_app_window_as_png(app=self.app, file_name=file_name, height_adjustment=-75)
+        try:
+            suggested_file_name = f"Coaching für {self.app.var_participant_name.get()} - {self.app.var_start_date.get()}"
+            file_name = utils.dialogs.ask_for_filename(parent=self.app, title="Save overview", initialdir="screenshots",
+                                                        initialfile=suggested_file_name, defaultextension=".png")
+            utils.screenshot.save_app_window_as_png(app=self.app, file_name=file_name, height_adjustment=-75)
+            self._show_message_box_success()
+        except ValueError as err:
+            self._show_message_box_failure()
+
+    def _show_message_box_success(self) -> None:
+        """
+        Display a message box
+        """
+        msg_box_success = utils.toasts.MessageBox(
+            title="Abgeschlossen",
+            message=f"Coaching-Paketübersicht für {self.app.var_participant_name.get()} gespeichert.",
+            duration_in_seconds=4
+        )
+        msg_box_success.show_message()
+
+    def _show_message_box_failure(self) -> None:
+        """
+        Display a message box
+        """
+        msg_box_failure = utils.toasts.MessageBox(
+            title="Abgebrochen",
+            message=f"Speichern des Coaching-Pakets abgebrochen",
+            duration_in_seconds=4
+        )
+        msg_box_failure.show_message()
 
     def _update(self) -> None:
         """
