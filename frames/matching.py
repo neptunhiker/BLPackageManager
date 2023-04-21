@@ -15,6 +15,7 @@ class Matching(ttk.Frame):
     def __init__(self, app) -> None:
         super(Matching, self).__init__(master=app)
         self.app = app
+        self.app.var_package_name.trace("w", self._trace_chosen_package)
         self.var_start_date = ttk.StringVar()
         self.var_end_date = ttk.StringVar()
         self.var_coach_name = ttk.StringVar()
@@ -34,7 +35,7 @@ class Matching(ttk.Frame):
         self.grid_rowconfigure(1, weight=12)
         self.grid_rowconfigure(2, weight=1)
 
-        self.top_frame = ttk.Frame(self, bootstyle="primary")
+        self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)
         self.top_frame.grid(row=0, column=0, sticky="NSEW")
         self.top_frame.grid_rowconfigure(0, weight=1)
         self.top_frame.grid_columnconfigure(0, weight=1)
@@ -72,7 +73,7 @@ class Matching(ttk.Frame):
         self.coach_frame.grid_propagate(False)
 
         # navigation frame
-        navigation_style = "secondary"
+        navigation_style = settings.ALL_BOOTSTYLE_FRAME_BOTTOM
         self.nav_frame = ttk.Frame(self, bootstyle=navigation_style)
         self.nav_frame.grid(row=2, column=0, sticky="NSEW")
         self.nav_frame.grid_rowconfigure(0, weight=1)
@@ -94,7 +95,7 @@ class Matching(ttk.Frame):
         title = ttk.Label(
             self.top_frame,
             text=title,
-            bootstyle="inverse-primary",
+            bootstyle=f"inverse-{settings.ALL_BOOTSTYLE_FRAME_TOP_BG}",
             font=(settings.FONT, settings.FONT_SIZE_XL),
             justify="center",
         )
@@ -110,18 +111,18 @@ class Matching(ttk.Frame):
 
         # labels
         ttk.Label(
-            frame, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L)
+            frame, text="Teilnehmer:In", font=(settings.FONT, settings.FONT_SIZE_L), bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         ).grid(row=0, column=0, columnspan=2, pady=(0, 30), padx=0)
-        ttk.Label(frame, text="Vorname", bootstyle="secondary").grid(
+        ttk.Label(frame, text="Vorname").grid(
             row=1, column=0, sticky="W"
         )
-        ttk.Label(frame, text="Nachname", bootstyle="secondary").grid(
+        ttk.Label(frame, text="Nachname").grid(
             row=3, column=0, sticky="W"
         )
-        ttk.Label(frame, text="E-Mail", bootstyle="secondary").grid(
+        ttk.Label(frame, text="E-Mail").grid(
             row=5, column=0, sticky="W"
         )
-        ttk.Label(frame, text="Telefon", bootstyle="secondary").grid(
+        ttk.Label(frame, text="Telefon").grid(
             row=7, column=0, sticky="W"
         )
 
@@ -149,6 +150,7 @@ class Matching(ttk.Frame):
             text="Geplantes Startdatum",
             font=(settings.FONT, settings.FONT_SIZE_L),
             cursor="hand2",
+            bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header_start_date.grid(row=0, column=0)
         header_start_date.bind(
@@ -161,7 +163,6 @@ class Matching(ttk.Frame):
             textvariable=self.var_start_date,
             font=(settings.FONT, settings.FONT_SIZE_XL),
             cursor="hand2",
-            bootstyle="secondary",
         )
         start_date.grid(row=1, column=0, pady=(40, 0))
         start_date.bind(
@@ -170,7 +171,7 @@ class Matching(ttk.Frame):
         )
 
         header_end_date = ttk.Label(
-            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S)
+            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header_end_date.grid(row=2, column=0, pady=(100, 0))
 
@@ -178,7 +179,6 @@ class Matching(ttk.Frame):
             frame,
             textvariable=self.var_end_date,
             font=(settings.FONT, settings.FONT_SIZE_M),
-            bootstyle="secondary",
         )
         end_date.grid(row=3, column=0, pady=(40, 0))
 
@@ -200,7 +200,7 @@ class Matching(ttk.Frame):
             self.app.var_end_date.set(date_str_end_date)
             self.var_end_date.set(date_str_end_date)
         else:
-            self.var_end_date.set("Bitte Paket auswählen")
+            self.var_end_date.set("Bitte Plan auswählen")
 
     def _coach(self) -> None:
         """
@@ -214,9 +214,9 @@ class Matching(ttk.Frame):
             frame,
             text="Gewählter Coach",
             font=(settings.FONT, settings.FONT_SIZE_L),
-            cursor="hand2",
             width=15,
             anchor="center",
+            bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header.grid(row=0, column=1, pady=(0, 100))
 
@@ -237,7 +237,6 @@ class Matching(ttk.Frame):
             frame,
             textvariable=self.var_coach_name,
             font=(settings.FONT, settings.FONT_SIZE_M),
-            bootstyle="secondary",
         )
         lbl_name.grid(row=1, column=1, pady=(0, 30))
 
@@ -302,3 +301,22 @@ class Matching(ttk.Frame):
         self.app.var_participant_first_name.set(self.var_participant_first_name.get())
         self.app.var_participant_last_name.set(self.var_participant_last_name.get())
         self.app.var_participant_name.set(full_name)
+
+    def _trace_chosen_package(self, a, b, c) -> None:
+        """
+        Update the end date if a start date has been selected and a package is chosen
+        :return None
+        """
+        # If start date has been chosen already then update the end date based on package selection
+        if self.var_start_date.get() != "":
+            if self.app.var_package_name.get() == "Bitte Plan auswählen":
+                self.app.var_end_date.set("")
+                self.var_end_date.set(self.app.var_package_name.get())
+            else:
+                end_date = datetime.datetime.strptime(self.var_start_date.get(), "%d. %B %Y") + datetime.timedelta(
+                    weeks=self.app.chosen_package.duration_in_weeks
+                )
+                date_str_end_date = datetime.datetime.strftime(end_date, "%d. %B %Y")
+                self.app.var_end_date.set(date_str_end_date)
+                self.var_end_date.set(date_str_end_date)
+

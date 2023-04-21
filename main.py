@@ -5,6 +5,9 @@ import frames
 import settings
 import config_database
 
+from ttkcreator import __main__
+
+
 class App(ttk.Window):
 
     def __init__(self, database, active_environment: str):
@@ -19,7 +22,7 @@ class App(ttk.Window):
         # package
         self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
         self.chosen_package = None
-        self.var_package_name = ttk.StringVar(value="Bitte Paket auswählen")
+        self.var_package_name = ttk.StringVar(value="Bitte Plan auswählen")
         self.var_ues_coach = ttk.IntVar(value="")
         self.var_sessions_per_week = ttk.IntVar(value="")
         self.var_duration_in_weeks = ttk.IntVar(value="")
@@ -64,6 +67,8 @@ class App(ttk.Window):
         # self.show_page(frames.matching.Matching)
         # self.show_page(frames.overview.Overview)
         self.show_page(frames.home.Home)
+
+        self._menu()
             
     def add_page(self, page_class: ttk.Frame) -> None:
         """
@@ -87,6 +92,22 @@ class App(ttk.Window):
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         self.geometry("%dx%d+0+0" % (w, h))  # sets screen to full size
         self.state('zoomed')
+
+    def _menu(self) -> None:
+        # Create a menu
+        menu = ttk.Menu(self)
+
+        # Create a sub-menu for "Package"
+        package_menu = ttk.Menu(menu, tearoff=0)
+        package_menu.add_command(label="Coaching-Pläne", command= lambda: self.show_page(frames.choose_package.PackagePicker))
+        package_menu.add_command(label="BeginnerLuft Service", command= lambda: self.show_page(frames.choose_module.ModulePicker))
+        package_menu.add_command(label="Matching", command= lambda: self.show_page(frames.matching.Matching))
+        package_menu.add_command(label="Coaching-Notizen", command= lambda: self.show_page(frames.participant_notes.Notes))
+        package_menu.add_command(label="Coaching-Überblick", command= lambda: self.show_page(frames.overview.Overview))
+        menu.add_cascade(label="Coaching Menü", menu=package_menu)
+
+        # Attach the menu to the window
+        self.config(menu=menu)
 
     def show_page(self, page) -> None:
         """
