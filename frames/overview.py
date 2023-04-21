@@ -83,7 +83,7 @@ class Overview(ttk.Frame):
         Display details about the chosen package
         :return None
         """
-        header = ttk.Label(self.frame_01, text="Coaching-Paket", font=(settings.FONT, settings.FONT_SIZE_L),
+        header = ttk.Label(self.frame_01, text="Coaching-Plan", font=(settings.FONT, settings.FONT_SIZE_L),
                            bootstyle=settings.OVERVIEW_BOOTSTYLE_HEADING, cursor="hand2")
         header.grid(row=0, column=0, pady=20, columnspan=2)
         header.bind("<Button-1>", lambda event: self.app.show_page(frames.choose_package.PackagePicker))
@@ -285,7 +285,7 @@ class Overview(ttk.Frame):
         """
         msg_box_success = utils.toasts.MessageBox(
             title="Abgeschlossen",
-            message=f"Coaching-Paketübersicht für {self.app.var_participant_name.get()} gespeichert.",
+            message=f"Coaching-Planübersicht für {self.app.var_participant_name.get()} gespeichert.",
             duration_in_seconds=4
         )
         msg_box_success.show_message()
@@ -296,7 +296,7 @@ class Overview(ttk.Frame):
         """
         msg_box_failure = utils.toasts.MessageBox(
             title="Abgebrochen",
-            message=f"Speichern des Coaching-Pakets abgebrochen",
+            message=f"Speichern des Coaching-Plans abgebrochen",
             duration_in_seconds=4
         )
         msg_box_failure.show_message()

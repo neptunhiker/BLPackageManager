@@ -22,7 +22,7 @@ class App(ttk.Window):
         # package
         self.packages = sorted(self.db.get_packages(), key=lambda obj: obj.id)
         self.chosen_package = None
-        self.var_package_name = ttk.StringVar(value="Bitte Paket auswählen")
+        self.var_package_name = ttk.StringVar(value="Bitte Plan auswählen")
         self.var_ues_coach = ttk.IntVar(value="")
         self.var_sessions_per_week = ttk.IntVar(value="")
         self.var_duration_in_weeks = ttk.IntVar(value="")
@@ -99,7 +99,7 @@ class App(ttk.Window):
 
         # Create a sub-menu for "Package"
         package_menu = ttk.Menu(menu, tearoff=0)
-        package_menu.add_command(label="Coaching-Pakete", command= lambda: self.show_page(frames.choose_package.PackagePicker))
+        package_menu.add_command(label="Coaching-Pläne", command= lambda: self.show_page(frames.choose_package.PackagePicker))
         package_menu.add_command(label="BeginnerLuft Service", command= lambda: self.show_page(frames.choose_module.ModulePicker))
         package_menu.add_command(label="Matching", command= lambda: self.show_page(frames.matching.Matching))
         package_menu.add_command(label="Coaching-Notizen", command= lambda: self.show_page(frames.participant_notes.Notes))

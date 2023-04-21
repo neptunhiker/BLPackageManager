@@ -200,7 +200,7 @@ class Matching(ttk.Frame):
             self.app.var_end_date.set(date_str_end_date)
             self.var_end_date.set(date_str_end_date)
         else:
-            self.var_end_date.set("Bitte Paket auswählen")
+            self.var_end_date.set("Bitte Plan auswählen")
 
     def _coach(self) -> None:
         """
@@ -309,7 +309,7 @@ class Matching(ttk.Frame):
         """
         # If start date has been chosen already then update the end date based on package selection
         if self.var_start_date.get() != "":
-            if self.app.var_package_name.get() == "Bitte Paket auswählen":
+            if self.app.var_package_name.get() == "Bitte Plan auswählen":
                 self.app.var_end_date.set("")
                 self.var_end_date.set(self.app.var_package_name.get())
             else:

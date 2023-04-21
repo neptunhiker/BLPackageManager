@@ -237,7 +237,7 @@ def create_db(path: str) -> None:
             ues=52,
             sessions_per_week=2,
             ues_per_week=4,
-            description="Paket A hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
+            description="Plan A hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
             ues_coach=32,
             ues_bl=20,
         )
@@ -250,7 +250,7 @@ def create_db(path: str) -> None:
             ues=52,
             sessions_per_week=1,
             ues_per_week=3,
-            description="Paket B hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
+            description="Plan B hat eine vorgesehen Dauer von 8 Wochen und 52 UEs.",
             ues_coach=24,
             ues_bl=28,
         )
@@ -264,7 +264,7 @@ def create_db(path: str) -> None:
             ues=52,
             sessions_per_week=2,
             ues_per_week=4,
-            description="Paket C hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
+            description="Plan C hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
             ues_coach=48,
             ues_bl=4,
         )
@@ -278,7 +278,7 @@ def create_db(path: str) -> None:
             ues=52,
             sessions_per_week=1,
             ues_per_week=3,
-            description="Paket D hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
+            description="Plan D hat eine vorgesehen Dauer von 12 Wochen und 52 UEs.",
             ues_coach=36,
             ues_bl=16,
         )

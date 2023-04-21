@@ -54,7 +54,7 @@ class PackagePicker(ttk.Frame):
             self.nav_frame.grid_columnconfigure(i, weight=1)
 
         # create content
-        self._title(title="Coaching-Pakete")
+        self._title(title="Coaching-Pläne")
         self.selectable_frames = [SelectableFrame(parent=self.packages_frame, package=package) 
                                   for package in self.app.packages]
 
@@ -88,7 +88,7 @@ class PackagePicker(ttk.Frame):
 
             package = selec_frame.package
 
-            if package.name == "Paket Flex":
+            if package.name == "Plan Flex":
                 flex_adjuster = "~"
             else:
                 flex_adjuster = ""
@@ -215,7 +215,7 @@ class PackagePicker(ttk.Frame):
         Reset all package variables being tracked by the app to None as a result of having deselected a package
         :return None
         """
-        self.app.var_package_name.set("Bitte Paket auswählen")
+        self.app.var_package_name.set("Bitte Plan auswählen")
         self.app.var_ues_coach.set("")
         self.app.var_sessions_per_week.set("")
         self.app.var_duration_in_weeks.set("")
