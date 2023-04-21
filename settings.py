@@ -3,8 +3,8 @@ THEMENAME = "beginnerluftdark"
 THEMENAME = "beginnerluftclassic"
 THEMENAME = "superhero"
 THEMENAME = "beginnerluftclassic"
-THEMENAME = "vapor"
-THEMENAME = "beginnerluftdark"
+# THEMENAME = "vapor"
+# THEMENAME = "beginnerluftdark"
 
 
 FONT = "DIN condensed"
