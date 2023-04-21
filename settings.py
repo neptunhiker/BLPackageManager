@@ -1,10 +1,10 @@
-THEMENAME = "beginnerluftearthy"
-THEMENAME = "beginnerluftdark"
-THEMENAME = "beginnerluftclassic"
-THEMENAME = "superhero"
-THEMENAME = "beginnerluftclassic"
-# THEMENAME = "vapor"
+# THEMENAME = "beginnerluftearthy"
 # THEMENAME = "beginnerluftdark"
+# THEMENAME = "beginnerluftclassic"
+# THEMENAME = "superhero"
+# THEMENAME = "beginnerluftclassic"
+# THEMENAME = "vapor"
+THEMENAME = "beginnerluftdark"
 
 
 FONT = "DIN condensed"

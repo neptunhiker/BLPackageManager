@@ -26,7 +26,7 @@ class Home(ttk.Frame):
 
         self.top_frame.bind("<Button->", lambda event: self.app.show_page(frames.choose_package.PackagePicker))
 
-        self._title(title="BeginnerLuft 1.0")
+        self._title(title="BeginnerLuft")
     
     def _title(self, title: str) -> None:
         """
