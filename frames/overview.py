@@ -191,7 +191,8 @@ class Overview(ttk.Frame):
         name = ttk.Label(self.frame_04, textvariable=self.app.var_coach_name, font=(settings.FONT, settings.FONT_SIZE_M))
         name.grid(row=1, column=0, pady=(0, 20))
 
-        description = ttk.Label(self.frame_04, textvariable=self.app.var_coach_description, wraplength=200, justify="center")
+        description = ttk.Label(self.frame_04, textvariable=self.app.var_coach_description,
+                                wraplength=350, justify="center")
         description.grid(row=2, column=0, pady=(0, 10))
 
         web_link = ttk.Label(self.frame_04, textvariable=self.app.var_coach_web_link)
