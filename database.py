@@ -64,21 +64,13 @@ class Module(Base):
     id = Column("ID", Integer, primary_key=True, autoincrement=True)
     name = Column("Name", String)
     description = Column("Description", String)
-    min_ues = Column("MinUEs", Integer)
-    max_ues = Column("MaxUEs", Integer)
-    default_owner = Column("DefaultOwner", String)
-    default = Column("Default", Boolean)
+    order = Column("Order", String)
 
-    def __init__(
-        self, name, description, min_ues, max_ues, default_owner, default: bool = False
-    ) -> None:
+    def __init__(self, name, description, order) -> None:
         self.id = self.id
         self.name = name
         self.description = description
-        self.min_ues = min_ues
-        self.max_ues = max_ues
-        self.default_owner = default_owner
-        self.default = default
+        self.order = order
 
     def __str__(self) -> str:
         return f"Module: {self.name} - {self.description}"
@@ -211,10 +203,7 @@ def create_db(path: str) -> None:
         Module(
             name="Erstgespräch & Matching",
             description="Erstgespräch zwischen Teilnehmer:In und BeginnerLuft inkl. Matching mit einem erfahrenen und passenden Coach.",
-            min_ues=2,
-            max_ues=6,
-            default_owner="BeginnerLuft",
-            default=True,
+            order="Beginn"
         )
     )
 
@@ -222,9 +211,7 @@ def create_db(path: str) -> None:
         Module(
             name="Zielbeschreibung",
             description="Ergründung des Coaching Ziels.",
-            min_ues=2,
-            max_ues=4,
-            default_owner="Coach",
+            order="Ende"
         )
     )
 
@@ -335,11 +322,11 @@ class DataBase:
 
 
 if __name__ == "__main__":
-    # create_db(path="test.db")
+    # create_db(path="databases/test_db.db")
 
-    db = DataBase(path="bl_db.db")
-    crew_members = db.get_crew_members()
-    for crew_member in crew_members:
+    db = DataBase(path="databases/test_db.db")
+
+    for crew_member in db.get_crew_members():
         print(crew_member)
 
     for module in db.get_modules():
