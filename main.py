@@ -3,6 +3,7 @@ import ttkbootstrap as ttk
 import database
 import frames
 import settings
+import utils.sorting
 import config_database
 
 from ttkcreator import __main__
@@ -16,7 +17,7 @@ class App(ttk.Window):
         self.active_environment = active_environment
         self.coaches = db.get_coaches()
         self.chosen_coach = None
-        self.modules = self.db.get_modules()
+        self.modules = utils.sorting.sort_modules(self.db.get_modules())
         self.chosen_modules = {}
 
         # package

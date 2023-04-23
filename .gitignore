@@ -1,5 +1,5 @@
 venv/
 databases/
 screenshots/
-__pycach__/
+__pycache__/
 .idea/
