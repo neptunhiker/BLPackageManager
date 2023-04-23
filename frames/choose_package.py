@@ -21,8 +21,8 @@ class PackagePicker(ttk.Frame):
         self.app = app
 
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_rowconfigure(1, weight=12)
+        self.grid_rowconfigure(0, weight=2)
+        self.grid_rowconfigure(1, weight=36)
         self.grid_rowconfigure(2, weight=1)
         
         self.top_frame = ttk.Frame(self, bootstyle=settings.ALL_BOOTSTYLE_FRAME_TOP_BG)

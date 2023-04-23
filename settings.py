@@ -1,3 +1,5 @@
+import ttkbootstrap as ttk
+
 # THEMENAME = "beginnerluftearthy"
 # THEMENAME = "beginnerluftdark"
 # THEMENAME = "beginnerluftclassic"
