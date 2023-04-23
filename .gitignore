@@ -2,3 +2,4 @@ venv/
 databases/
 screenshots/
 __pycach__/
+.idea/
