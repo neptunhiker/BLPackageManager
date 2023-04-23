@@ -2,4 +2,4 @@ venv/
 databases/
 screenshots/
 **/__pycache__/
-.idea/
+.idea/workspace.xml
