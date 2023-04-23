@@ -1,22 +1,24 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-root = tk.Tk()
-
-# Create a custom style for the label
+# create a ttkbootstrap style
 style = ttk.Style()
 
-# Configure a labelframe with a border width and color
-style.configure('RoundedLabelFrame.TLabelframe', borderwidth=10, bordercolor='blue')
+# configure the style to use a yellow border
+style.configure('Yellow.TFrame', bordercolor='yellow')
 
-# Configure a label with padding to create the rounded corners
-style.configure('RoundedLabel.TLabel', padding=(30, 30, 30, 30), relief='raised', background='white')
+# create a tkinter window
+root = tk.Tk()
 
-# Create a labelframe and label using the custom style
-label_frame = ttk.Frame(root, style='RoundedLabelFrame.TLabelframe')
-label_frame.pack(padx=20, pady=20)
+# create a frame with the Yellow.TFrame style
+frame = ttk.Frame(root, style='Yellow.TFrame')
 
-label = ttk.Label(label_frame, text='Hello, world!', style='RoundedLabel.TLabel')
+# add widgets to the frame
+label = ttk.Label(frame, text='This is a yellow frame')
 label.pack(padx=10, pady=10)
 
+# pack the frame in the window
+frame.pack()
+
+# start the tkinter event loop
 root.mainloop()
