@@ -196,7 +196,7 @@ class Matching(ttk.Frame):
         if self.app.chosen_package is not None:
             end_date = start_date + datetime.timedelta(
                 weeks=self.app.chosen_package.duration_in_weeks
-            )
+            ) - datetime.timedelta(days=1)
             date_str_end_date = datetime.datetime.strftime(end_date, "%d. %B %Y")
             self.app.var_end_date.set(date_str_end_date)
             self.var_end_date.set(date_str_end_date)
