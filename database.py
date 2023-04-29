@@ -85,6 +85,7 @@ class Package(Base):
     ues = Column("UEs", Integer)
     sessions_per_week = Column("SessionsPerWeek", Integer)
     ues_per_week = Column("UEsPerWeek", Integer)
+    total_sessions = Column("TotalSessions", Integer)
     description = Column("Description", String)
     ues_coach = Column("UEsCoach", Integer)
     ues_bl = Column("UEsBL", Integer)
@@ -97,6 +98,7 @@ class Package(Base):
         ues,
         sessions_per_week,
         ues_per_week,
+        total_sessions,
         description,
         ues_coach,
         ues_bl,
@@ -107,6 +109,7 @@ class Package(Base):
         self.ues = ues
         self.sessions_per_week = sessions_per_week
         self.ues_per_week = ues_per_week
+        self.total_sessions = total_sessions
         self.description = description
         self.ues_coach = ues_coach
         self.ues_bl = ues_bl
