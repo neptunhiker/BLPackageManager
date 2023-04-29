@@ -171,7 +171,8 @@ class Matching(ttk.Frame):
         )
 
         header_end_date = ttk.Label(
-            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S), bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
+            frame, text="Geplantes Enddatum", font=(settings.FONT, settings.FONT_SIZE_S),
+            bootstyle=settings.ALL_BOOTSTYLE_SUBHEADING
         )
         header_end_date.grid(row=2, column=0, pady=(100, 0))
 

@@ -27,7 +27,7 @@ class App(ttk.Window):
         self.var_ues_coach = ttk.IntVar(value="")
         self.var_sessions_per_week = ttk.IntVar(value="")
         self.var_duration_in_weeks = ttk.IntVar(value="")
-        self.var_sessions_with_coach = ttk.IntVar(value="")
+        self.var_total_sessions = ttk.IntVar(value="")
 
         # coach
         self.var_coach_name = ttk.StringVar()

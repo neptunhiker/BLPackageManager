@@ -105,7 +105,7 @@ class Overview(ttk.Frame):
         duration_in_weeks = ttk.Label(self.frame_01, textvariable=self.app.var_duration_in_weeks, font=(settings.FONT, settings.FONT_SIZE_S))
         duration_in_weeks.grid(row=4, column=0, sticky="E")
 
-        sessions_with_coach = ttk.Label(self.frame_01, textvariable=self.app.var_sessions_with_coach, font=(settings.FONT, settings.FONT_SIZE_S))
+        sessions_with_coach = ttk.Label(self.frame_01, textvariable=self.app.var_total_sessions, font=(settings.FONT, settings.FONT_SIZE_S))
         sessions_with_coach.grid(row=5, column=0, sticky="E")
 
         plus = ttk.Label(self.frame_01, text="+", font=(settings.FONT, settings.FONT_SIZE_S))

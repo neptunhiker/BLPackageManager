@@ -123,8 +123,8 @@ class PackagePicker(ttk.Frame):
                 font=(settings.FONT, settings.FONT_SIZE_S))
             lbl.grid(row=4, column=1, sticky="W")
 
-            sessions_with_coach = str(package.duration_in_weeks * package.sessions_per_week),
-            lbl = ttk.Label(frame, text=f"{flex_adjuster}{sessions_with_coach[0]}",
+            total_sessions = str(package.total_sessions),
+            lbl = ttk.Label(frame, text=f"{flex_adjuster}{total_sessions[0]}",
                             font=(settings.FONT, settings.FONT_SIZE_L))
             lbl.grid(row=5, column=0, sticky="E")
             lbl = ttk.Label(frame, text="Termine insgesamt",
@@ -200,7 +200,6 @@ class PackagePicker(ttk.Frame):
     
         self.var_package_description.set("")
 
-
     def _navigation(self, nav_style: str = "secondary") -> None:
         """
         Display naviagation elements
@@ -219,18 +218,21 @@ class PackagePicker(ttk.Frame):
         self.app.var_ues_coach.set("")
         self.app.var_sessions_per_week.set("")
         self.app.var_duration_in_weeks.set("")
-        self.app.var_sessions_with_coach.set("")
+        self.app.var_total_sessions.set("")
 
     def _update_package_variables(self, package: database.Package) -> None:
         """
         Update the package variables so that the app can keep track of what has been chosen
         :return None
         """
-
+        if package.name == "Plan Flex":
+            flex_adjuster = "~"
+        else:
+            flex_adjuster = ""
         self.app.var_package_name.set(package.name)
         self.app.var_ues_coach.set(package.ues_coach)
-        self.app.var_sessions_per_week.set(package.sessions_per_week)
-        self.app.var_duration_in_weeks.set(package.duration_in_weeks)
-        self.app.var_sessions_with_coach.set(package.sessions_per_week * package.duration_in_weeks)
+        self.app.var_sessions_per_week.set(f"{flex_adjuster}{package.sessions_per_week}")
+        self.app.var_duration_in_weeks.set(f"{flex_adjuster}{package.duration_in_weeks}")
+        self.app.var_total_sessions.set(f"{flex_adjuster}{package.total_sessions}")
 
         
